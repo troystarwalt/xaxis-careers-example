@@ -1,6 +1,14 @@
+= select_tag :department_name, options_for_select(JobsJson.get_current_departments),{selected: params[:department], prompt: "All Departments"}
+
+= select_tag :catergory_name, options_for_select(JobsJson.get_current_categories), {selected: params[:category], prompt: "All Categories"}
+
+= select_tag :location_name, options_for_select(JobsJson.get_current_locations), {selected: params[:location], prompt: "All Locations"}
+
 %ul
-  -@jobs.jobvite_return['requisitions'].each do |job_listing|
+  -@jobs.jobvite_return['requisitions'].each do |job|
     %li
-      %h2= job_listing['title']
-      =link_to 'read more', job_path(eId: job_listing['eId'])
-      =link_to "apply", job_listing["applyLink"]
+      %h2= job['title']
+      = "#{job['locationCity']}, #{job['locationState']} #{job['locationCountry']}"
+      %p= HTML_Truncator.truncate(job['description'],100).html_safe
+      =link_to 'read more', job_path(eId: job['eId'])
+      =link_to "apply", job["applyLink"]
