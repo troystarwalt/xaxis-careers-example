@@ -1,0 +1,13 @@
+=@job
+%h2
+  = @job['title']
+
+.subtitle
+  = @job['category']
+  |
+  = @job['location']
+  |
+  = @job['locationCity']
+=link_to "apply", @job["applyLink"]
+%p
+  = @job['description'].html_safe

@@ -1,0 +1,6 @@
+%ul
+  -@jobs.jobvite_return['requisitions'].each do |job_listing|
+    %li
+      %h2= job_listing['title']
+      =link_to 'read more', job_path(eId: job_listing['eId'])
+      =link_to "apply", job_listing["applyLink"]
