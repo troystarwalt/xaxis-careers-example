@@ -1,7 +1,4 @@
--if current_page?('/careers')
-  .jumbotron
-    =image_tag asset_path('hero-image.png')
--elsif params[:location] || params[:department]
+-if params[:location] || params[:department]
   .jumbotron
     =image_tag asset_path('hero-image.png')
     .overlay-text
@@ -14,7 +11,7 @@
   .row.col-md-offset-2
     -JobsJson.get_regions.each do |region|
       .text-center.region{class: region[:class]}
-        =link_to region[:link] do
+        =link_to region[:slug] do
           %h2=region[:display].html_safe
         %hr
         = JobsJson.get_openings_by_region(region).count

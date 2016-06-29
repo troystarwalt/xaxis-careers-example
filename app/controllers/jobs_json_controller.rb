@@ -28,4 +28,11 @@ class JobsJsonController < ApplicationController
   def mobility
   end
 
+  def region_index
+    @jobs = Rails.cache.fetch("jobs/region/#{params[:region]}",expires_in: 24.hour) do
+      region = JobsJson.get_region_by_slug(params[:region])
+      JobsJson.get_openings_by_region(region)
+    end
+  end
+
 end

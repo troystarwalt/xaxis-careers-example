@@ -79,8 +79,50 @@ class JobsJson < ActiveRecord::Base
         hero_image: '',
         slug: 'strategy'
       }
+    ],
+    regions: [
+      {
+        name: "North America",
+        display: "NORTH<br>AMERICA",
+        link: "/careers/regions/north-america",
+        slug: 'north-america',
+        class: 'col-sm-2',
+        countries: ['United States', 'Canada']
+      },
+      {
+        name: "Latin America",
+        display: "LATIN<br>AMERICA",
+        link: "/careers/regions/latin-america",
+        slug: 'latin-america',
+        class: 'col-sm-2',
+        countries: ['Colombia','Mexico']
+      },
+      {
+        name: "Europe, Middle East and Africa",
+        display: "EUROPE, MIDDLE EAST AND AFRICA",
+        link: "/careers/regions/europe-middle-east-africa",
+        slug: 'europe-middle-east-africa',
+        class: 'col-sm-3',
+        countries: ["United Kingdom",'Germany']
+      },
+      {
+        name: "Asia Pacific",
+        display: "ASIA<br>PACIFIC",
+        link: "/careers/regions/asia-pacific",
+        slug: 'asia-pacific',
+        class: 'col-sm-2',
+        countries: ["Singapore"]
+      }
     ]
   }.freeze
+
+  def self.get_regions
+    OPTIONS[:regions]
+  end
+
+  def self.get_region_by_name(region_name)
+    OPTIONS[:regions].detect{|hash| hash[:slug] == hash[region_name]}
+  end
 
   def self.get_current_departments
     OPTIONS[:departments]
@@ -113,4 +155,13 @@ class JobsJson < ActiveRecord::Base
   def self.select_by_department(jobs,department)
     jobs.select!{|job| job if job['department'].downcase.gsub(' ','') == department}
   end
+
+  def self.get_region_by_slug(region_slug)
+    region = OPTIONS[:regions].detect{|hash| hash[:slug] == region_slug}
+  end
+
+  scope :get_openings_by_region, -> (region){last.job_listings.where(locationCountry: region[:countries])}
+
+
+
 end

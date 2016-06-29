@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get '/careers/locations' => 'jobs_json#index', as: :jobs_locations
   get '/careers/locations/:location' => 'jobs_json#index', as: :jobs_location
   get '/careers/view/:eId' => 'jobs_json#show', as: :job
+  get '/careers/regions/:region' => 'jobs_json#region_index', as: :jobs_region
   get '/careers/:department/:location' => 'jobs_json#index', as: :jobs_dept_loc
 end
