@@ -90,6 +90,22 @@ class JobsJson < ActiveRecord::Base
     OPTIONS[:locations]
   end
 
+  def self.get_location_from_slug(slug)
+    get_current_locations.detect{|hash| hash[:slug] == slug}
+  end
+
+  def self.get_department_from_slug(slug)
+    get_current_departments.detect{|hash| hash[:slug] == slug}
+  end
+
+  def self.get_location_name_from_slug(slug)
+    get_location_from_slug(slug)[:name]
+  end
+
+  def self.get_department_name_from_slug(slug)
+    get_department_from_slug(slug)[:name]
+  end
+
   def self.select_by_location(jobs,location)
     jobs.select!{|job| job if job['locationCity'].downcase.gsub(' ','') == location}
   end
