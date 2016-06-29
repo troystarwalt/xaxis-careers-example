@@ -16,14 +16,15 @@ class JobviteService
       if JobsJson.all.count > 0
         return JobsJson.last.job_listings
       else
-      #for testing - no need to make api calls
-      jobs = force_pull_jobs
-      listings = jobs.jobvite_return['requisitions']
-      create_jobs(listings)
-      if JobsJson.all.count > 1
-        JobsJson.first.destroy
+        #for testing - no need to make api calls
+        jobs = force_pull_jobs
+        listings = jobs.jobvite_return['requisitions']
+        create_jobs(listings)
+        if JobsJson.all.count > 1
+          JobsJson.first.destroy
+        end
+        return jobs.job_listings
       end
-      return jobs.job_listings
     end
   end
 
