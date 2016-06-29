@@ -10,13 +10,14 @@ class JobviteService
 
   def self.get_all_jobs
     if JobsJson.last && JobsJson.last.created_at > Time.now - 1.hour
-      return JobsJson.last.jobvite_return['requisitions']
+      #return JobsJson.last.jobvite_return['requisitions']
+      return JobsJson.last.job_listings
     else
       #for testing - no need to make api calls
-      return JobsJson.last.jobvite_return['requisitions']
-      #run this as a background job that hits every hour
-      # jobs = force_pull_jobs
-      # return jobs.jobvite_return['requisitions']
+      jobs = force_pull_jobs
+      listings = jobs.jobvite_return['requisitions']
+      create_jobs(listings)
+      return jobs.job_listings
     end
   end
 
@@ -40,6 +41,56 @@ class JobviteService
 
   def self.update_jobs_table json_response
     JobsJson.create(jobvite_return: json_response)
+  end
+
+  def self.create_jobs(requisitions_json)
+    requisitions_json.each do |job|
+      JobListing.create(jobs_json_id: jobs_json.id,
+      eId: job['eId'],
+      applyLink: job['applyLink'],
+      briefDescription: job['briefDescription'],
+      category: job['category'],
+      approveDate: job['approveDate'],
+      closeDate: job['closeDate'],
+      department: job['department'],
+      description: job['description'],
+      internalOnly: job['internalOnly'],
+      jobState: job['jobState'],
+      locationCity: job['locationCity'],
+      locationCountry: job['locationCountry'],
+      locationPostalCode: job['locationPostalCode'],
+      locationState: job['locationState'],
+      postingType: job['postingType'],
+      private: job['private'],
+      title: job['title'],
+      subsidiaryName: job['subsidiaryName']
+       )
+     end
+  end
+
+  def force
+    JobsJson.last.jobvite_return['requisitions'].each do |job|
+      JobListing.create(jobs_json_id: JobsJson.last.id,
+      eId: job['eId'],
+      applyLink: job['applyLink'],
+      briefDescription: job['briefDescription'],
+      category: job['category'],
+      approveDate: job['approveDate'],
+      closeDate: job['closeDate'],
+      department: job['department'],
+      description: job['description'],
+      internalOnly: job['internalOnly'],
+      jobState: job['jobState'],
+      locationCity: job['locationCity'],
+      locationCountry: job['locationCountry'],
+      locationPostalCode: job['locationPostalCode'],
+      locationState: job['locationState'],
+      postingType: job['postingType'],
+      private: job['private'],
+      title: job['title'],
+      subsidiaryName: job['subsidiaryName']
+       )
+     end
   end
 
 end

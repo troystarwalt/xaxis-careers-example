@@ -1,5 +1,5 @@
 class JobsJson < ActiveRecord::Base
-
+  has_many :job_listings
   OPTIONS = {
     locations: [
       'New York',

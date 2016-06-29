@@ -11,10 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628130543) do
+ActiveRecord::Schema.define(version: 20160629154821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "job_listings", force: :cascade do |t|
+    t.string   "eId"
+    t.string   "applyLink"
+    t.string   "briefDescription"
+    t.string   "category"
+    t.datetime "approveDate"
+    t.datetime "closeDate"
+    t.string   "department"
+    t.text     "description"
+    t.boolean  "internalOnly"
+    t.string   "jobState"
+    t.string   "locationCity"
+    t.string   "locationCountry"
+    t.string   "locationPostalCode"
+    t.string   "locationState"
+    t.string   "postingType"
+    t.boolean  "private"
+    t.string   "title"
+    t.integer  "jobs_json_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "locationFinder"
+    t.string   "subsidiaryName"
+  end
+
+  add_index "job_listings", ["jobs_json_id"], name: "index_job_listings_on_jobs_json_id", using: :btree
 
   create_table "jobs_jsons", force: :cascade do |t|
     t.jsonb    "jobvite_return"
@@ -22,4 +49,5 @@ ActiveRecord::Schema.define(version: 20160628130543) do
     t.datetime "updated_at",     null: false
   end
 
+  add_foreign_key "job_listings", "jobs_jsons"
 end

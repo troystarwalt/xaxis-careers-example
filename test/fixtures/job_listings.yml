@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  eId: MyString
+  applyLink: MyString
+  briefDescription: MyString
+  category: MyString
+  approveDate: 2016-06-29 11:05:09
+  closeDate: 2016-06-29 11:05:09
+  department: MyString
+  description: MyText
+  internalOnly: false
+  jobState: MyString
+  locationCity: MyString
+  locationCountry: MyString
+  locationPostalCode: MyString
+  locationState: MyString
+  postingType: MyString
+  private: false
+  title: MyString
+  jobsjson_id: 
+
+two:
+  eId: MyString
+  applyLink: MyString
+  briefDescription: MyString
+  category: MyString
+  approveDate: 2016-06-29 11:05:09
+  closeDate: 2016-06-29 11:05:09
+  department: MyString
+  description: MyText
+  internalOnly: false
+  jobState: MyString
+  locationCity: MyString
+  locationCountry: MyString
+  locationPostalCode: MyString
+  locationState: MyString
+  postingType: MyString
+  private: false
+  title: MyString
+  jobsjson_id: 

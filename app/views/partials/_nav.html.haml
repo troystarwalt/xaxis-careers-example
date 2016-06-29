@@ -17,7 +17,7 @@
           %ul.dropdown-menu
             -JobsJson.get_current_locations.sort!.each do |location|
               %li.job-category.col-sm-4.text-center
-                =link_to location, jobs_location_path(location.downcase.gsub(' ',''))
+                =link_to location, jobs_location_path(location.downcase.gsub(' ','-'))
         %li.dropdown
           =link_to "Departments", jobs_departments_path
           %ul.dropdown-menu

@@ -2,14 +2,16 @@
   .categories
     -JobsJson.get_current_departments.sort!.each do |department|
       .job-category.col-sm-4.text-center
-        =link_to department, jobs_department_path(department.downcase.gsub(' ',''))
+        =link_to department, jobs_department_path(department.downcase.gsub(' ','-'))
         %p
-          =@jobs.select{|x| x if x['department'] == department}.count
+          =@jobs.where(department: department).count
           openings
 
   %ul
     -@jobs.each do |job|
       %li
-        =job['title']
-        =link_to 'read more', job_path(job['eId'])
-        =link_to 'apply', job['applyLink']
+        =job.title
+        =link_to 'read more', job_path(job.eId)
+        =link_to 'apply', job.applyLink
+
+= JSON.pretty_generate(JobsJson.last.jobvite_return['requisitions']).html_safe
