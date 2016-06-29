@@ -1,14 +1,15 @@
-%h2
-  = @job['title']
+.container
+  %h2
+    = @job['title']
 
-.subtitle
-  = @job['subsidiaryName']
-  |
-  = @job['category']
-  |
-  = @job['locationCity']
-  |
-  = @job['locationCountry']
-=link_to "apply", @job["applyLink"]
-%p
-  = @job['description'].html_safe
+  .subtitle
+    = @job['subsidiaryName']
+    |
+    = @job['category']
+    |
+    = @job['locationCity']
+    |
+    = @job['locationCountry']
+  =link_to "apply", @job["applyLink"]
+  %p
+    = @job['description'].html_safe

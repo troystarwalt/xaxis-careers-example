@@ -1,0 +1,33 @@
+%nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      =link_to jobs_path, class: "nav navbar-brand" do
+        =image_tag asset_path('Xaxis_Logo_Pos_Horiz.png')
+    #navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to 'Culture', culture_path
+        %li.dropdown
+          =link_to "Locations", jobs_locations_path
+          %ul.dropdown-menu
+            -JobsJson.get_current_locations.sort!.each do |location|
+              %li.job-category.col-sm-4.text-center
+                =link_to location, jobs_location_path(location.downcase.gsub(' ',''))
+        %li.dropdown
+          =link_to "Departments", jobs_departments_path
+          %ul.dropdown-menu
+            -JobsJson.get_current_departments.sort!.each do |department|
+              %li.job-category.col-sm-4.text-center
+                =link_to department, jobs_department_path(department.downcase.gsub(' ',''))
+        %li
+          =link_to 'Benefits', benefits_path
+        %li
+          =link_to 'Mobility', mobility_path
+        %li
+          =link_to '#' do
+            %span.glyphicon.glyphicon-search

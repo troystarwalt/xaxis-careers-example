@@ -3,33 +3,38 @@ class JobsJson < ActiveRecord::Base
   OPTIONS = {
     locations: [
       'New York',
-      'Location 2',
-      'Location 3',
-      'Location 4'
-    ],
-    categories: [
-      'Administration',
-      'Business Ops',
-      'Ad Ops',
-      'Content'
+      'Toronto',
+      'Singapore',
+      'Bogota',
+      'Anzures',
+      'Karlsruhe'
     ],
     departments: [
-      'Tech',
-      'Ads',
+      'Account Management',
+      'Ad Ops',
+      'Analytics',
+      'Creative',
+      'Engineering',
+      'Finance',
+      'Publish Development',
       'Sales',
-      'Marketing'
+      'Strategy'
     ]
   }.freeze
-  
+
   def self.get_current_departments
     OPTIONS[:departments]
   end
 
-  def self.get_current_categories
-    OPTIONS[:categories]
-  end
-
   def self.get_current_locations
     OPTIONS[:locations]
+  end
+
+  def self.select_by_location(jobs,location)
+    jobs.select!{|job| job if job['locationCity'].downcase.gsub(' ','') == location}
+  end
+
+  def self.select_by_department(jobs,department)
+    jobs.select!{|job| job if job['department'].downcase.gsub(' ','') == department}
   end
 end
