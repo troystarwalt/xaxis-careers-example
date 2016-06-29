@@ -15,15 +15,15 @@
         %li.dropdown
           =link_to "Locations", jobs_locations_path
           %ul.dropdown-menu
-            -JobsJson.get_current_locations.sort!.each do |location|
+            -JobsJson.get_current_locations.sort_by!{|x| x[:name]}.each do |location|
               %li.job-category.col-sm-4.text-center
-                =link_to location, jobs_location_path(location.downcase.gsub(' ','-'))
+                =link_to location[:name], jobs_location_path(location[:slug])
         %li.dropdown
           =link_to "Departments", jobs_departments_path
           %ul.dropdown-menu
-            -JobsJson.get_current_departments.sort!.each do |department|
+            -JobsJson.get_current_departments.sort_by!{|x| x[:name]}.each do |department|
               %li.job-category.col-sm-4.text-center
-                =link_to department, jobs_department_path(department.downcase.gsub(' ',''))
+                =link_to department[:name], jobs_department_path(department[:slug])
         %li
           =link_to 'Benefits', benefits_path
         %li

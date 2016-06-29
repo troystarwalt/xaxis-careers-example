@@ -13,10 +13,16 @@ class JobviteService
       #return JobsJson.last.jobvite_return['requisitions']
       return JobsJson.last.job_listings
     else
+      if JobsJson.all.count > 0
+        return JobsJson.last.job_listings
+      else
       #for testing - no need to make api calls
       jobs = force_pull_jobs
       listings = jobs.jobvite_return['requisitions']
       create_jobs(listings)
+      if JobsJson.all.count > 1
+        JobsJson.first.destroy
+      end
       return jobs.job_listings
     end
   end
@@ -67,30 +73,4 @@ class JobviteService
        )
      end
   end
-
-  def force
-    JobsJson.last.jobvite_return['requisitions'].each do |job|
-      JobListing.create(jobs_json_id: JobsJson.last.id,
-      eId: job['eId'],
-      applyLink: job['applyLink'],
-      briefDescription: job['briefDescription'],
-      category: job['category'],
-      approveDate: job['approveDate'],
-      closeDate: job['closeDate'],
-      department: job['department'],
-      description: job['description'],
-      internalOnly: job['internalOnly'],
-      jobState: job['jobState'],
-      locationCity: job['locationCity'],
-      locationCountry: job['locationCountry'],
-      locationPostalCode: job['locationPostalCode'],
-      locationState: job['locationState'],
-      postingType: job['postingType'],
-      private: job['private'],
-      title: job['title'],
-      subsidiaryName: job['subsidiaryName']
-       )
-     end
-  end
-
 end

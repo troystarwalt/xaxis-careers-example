@@ -5,11 +5,11 @@ class JobsJsonController < ApplicationController
       JobviteService.get_all_jobs
     end
     if params[:location]
-      @jobs = @jobs.where(locationFinder: params[:location])
+      @jobs = @jobs.where(locationCity: params[:location].gsub('-',' ').titleize)
     end
-    # if params[:department]
-    #   @jobs = @jobs.where("lower(department) == ?", params[:department])
-    # end
+    if params[:department]
+      @jobs = @jobs.where(department: params[:department].gsub('-',' ').titleize)
+    end
   end
 
   def show

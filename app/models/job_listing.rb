@@ -4,8 +4,8 @@ class JobListing < ActiveRecord::Base
   before_create :set_location_finder
 
 
-
+  private 
   def set_location_finder
-    self.locationFinder = self.locationCity.downcase.gsub(' ','')
+    self.locationFinder = self.locationCity.downcase.gsub(' ','-')
   end
 end

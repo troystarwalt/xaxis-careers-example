@@ -1,17 +1,23 @@
+-if current_page?('/careers')
+  .jumbotron
+    =image_tag asset_path('hero-image.png')
+
 .container
   .categories
-    -JobsJson.get_current_departments.sort!.each do |department|
+    -JobsJson.get_current_departments.sort_by!{|x| x[:name]}.each do |department|
       .job-category.col-sm-4.text-center
-        =link_to department, jobs_department_path(department.downcase.gsub(' ','-'))
+        =link_to department[:name], jobs_department_path(department[:slug])
         %p
-          =@jobs.where(department: department).count
+          =@jobs.where(department: department[:name]).count
           openings
 
   %ul
     -@jobs.each do |job|
       %li
+        =job.subsidiaryName
+        |
         =job.title
+        |
         =link_to 'read more', job_path(job.eId)
+        |
         =link_to 'apply', job.applyLink
-
-= JSON.pretty_generate(JobsJson.last.jobvite_return['requisitions']).html_safe
