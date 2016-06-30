@@ -1,8 +1,8 @@
+= render partial: 'jumbotron', locals: {subtitle: @job.department}
+%h2.title-text
+  = @job['title']
 .container
-  %h2
-    = @job['title']
-
-  .subtitle
+  .job-subtitle
     = @job['subsidiaryName']
     |
     = @job['category']
@@ -10,6 +10,7 @@
     = @job['locationCity']
     |
     = @job['locationCountry']
-  =link_to "apply", @job["applyLink"]
   %p
     = @job['description'].html_safe
+
+  =link_to "apply", @job["applyLink"], class: 'btn btn-primary btn-lg'

@@ -1,0 +1,11 @@
+.container
+  .col-md-offset-1.col-md-10
+    .jobs-list
+      %p
+        To be a part of the digital frontier, join the Xaxis team. With 53 offices globally, we're always looking for genius. No matter if your specific genius lies in tech, HR or creative, apply below - and watch your digital career unfold.
+      %dl.dl-horizontal
+        -@jobs.each do |job|
+          %dt.job-title
+            =link_to job.title, job_path(job.eId)
+          %dd.text-right
+            ="#{job.locationCity}, #{job.locationCountry}"

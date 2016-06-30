@@ -4,6 +4,7 @@ class JobsJsonController < ApplicationController
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
       JobviteService.get_all_jobs
     end
+    @jobs = @jobs.by_title
     if params[:location]
       @jobs = @jobs.where(locationCity: params[:location].gsub('-',' ').titleize)
     end
@@ -12,11 +13,19 @@ class JobsJsonController < ApplicationController
     end
   end
 
+  def departments
+    @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
+      JobviteService.get_all_jobs
+    end
+    @jobs = @jobs.by_title
+  end
+
   def show
     @job = Rails.cache.fetch("job/#{params[:eId]}", expires_in: 24.hour) do
       jobs = JobviteService.get_all_jobs
       jobs.detect{|x| x['eId'] == params[:eId]}
     end
+    @subtitle = @job.title
   end
 
   def culture
@@ -33,6 +42,8 @@ class JobsJsonController < ApplicationController
       region = JobsJson.get_region_by_slug(params[:region])
       JobsJson.get_openings_by_region(region)
     end
+    @jobs = @jobs.by_title
+
   end
 
 end

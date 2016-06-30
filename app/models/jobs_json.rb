@@ -86,7 +86,6 @@ class JobsJson < ActiveRecord::Base
         display: "NORTH<br>AMERICA",
         link: "/careers/regions/north-america",
         slug: 'north-america',
-        class: 'col-sm-2',
         countries: ['United States', 'Canada']
       },
       {
@@ -94,7 +93,6 @@ class JobsJson < ActiveRecord::Base
         display: "LATIN<br>AMERICA",
         link: "/careers/regions/latin-america",
         slug: 'latin-america',
-        class: 'col-sm-2',
         countries: ['Colombia','Mexico']
       },
       {
@@ -102,7 +100,6 @@ class JobsJson < ActiveRecord::Base
         display: "EUROPE, MIDDLE EAST AND AFRICA",
         link: "/careers/regions/europe-middle-east-africa",
         slug: 'europe-middle-east-africa',
-        class: 'col-sm-3',
         countries: ["United Kingdom",'Germany']
       },
       {
@@ -110,7 +107,6 @@ class JobsJson < ActiveRecord::Base
         display: "ASIA<br>PACIFIC",
         link: "/careers/regions/asia-pacific",
         slug: 'asia-pacific',
-        class: 'col-sm-2',
         countries: ["Singapore"]
       }
     ]
@@ -161,7 +157,6 @@ class JobsJson < ActiveRecord::Base
   end
 
   scope :get_openings_by_region, -> (region){last.job_listings.where(locationCountry: region[:countries])}
-
 
 
 end

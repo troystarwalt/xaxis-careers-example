@@ -21,5 +21,28 @@
     &:hover
       text-decoration: none
   .region
+    h2
+      color: $primary-color
+      &:hover
+        color: $xaxis-blue-color
+    hr
+      width: 80%
+      border-top: 2px solid #eee
+
 .jobs-list
   margin-bottom: 80px
+  p
+    color: lighten($primary-color,20)
+  .dl-horizontal
+    font-size: 1.4em
+    dt
+      text-align: left !important
+      width: auto
+      a
+        color: lighten($primary-color,20)
+      &:hover
+        a
+          color: $xaxis-blue-color
+          text-decoration: none
+    dd
+      color: lighten($primary-color,20)

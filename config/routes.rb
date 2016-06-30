@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/careers/benefits' => 'jobs_json#benefits', as: :benefits
   get '/careers/culture' => 'jobs_json#culture', as: :culture
   get '/careers/mobility' => 'jobs_json#mobility', as: :mobility
-  get '/careers/departments/' => 'jobs_json#index', as: :jobs_departments
+  get '/careers/departments/' => 'jobs_json#departments', as: :jobs_departments
   get '/careers/departments/:department' => 'jobs_json#index', as: :jobs_department
   get '/careers/locations' => 'jobs_json#index', as: :jobs_locations
   get '/careers/locations/:location' => 'jobs_json#index', as: :jobs_location
