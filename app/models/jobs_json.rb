@@ -65,6 +65,11 @@ class JobsJson < ActiveRecord::Base
         slug: 'finance'
       },
       {
+        name: 'Product',
+        hero_image: '',
+        slug: 'product'
+      },
+      {
         name: 'Publisher Development',
         hero_image: '',
         slug: 'publisher-development'

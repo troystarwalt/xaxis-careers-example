@@ -1,10 +1,10 @@
-class JobsJsonController < ApplicationController
+class Careers::JobsJsonController < ApplicationController
 
   def index
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
       JobviteService.get_all_jobs
     end
-    @jobs = @jobs.by_title
+    @jobs = @jobs.by_title.listed
     if params[:location]
       @jobs = @jobs.where(locationCity: params[:location].gsub('-',' ').titleize)
     end
@@ -14,10 +14,10 @@ class JobsJsonController < ApplicationController
   end
 
   def departments
-    @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
-      JobviteService.get_all_jobs
+    @jobs = Rails.cache.fetch("jobs/#{params[:department]}",expires_in: 24.hour) do
+      jobs = JobviteService.get_all_jobs
+      jobs = jobs.by_title.listed
     end
-    @jobs = @jobs.by_title
   end
 
   def show
@@ -26,6 +26,13 @@ class JobsJsonController < ApplicationController
       jobs.detect{|x| x['eId'] == params[:eId]}
     end
     @subtitle = @job.title
+    if @job.private
+      return redirect_to :back
+    end
+    @jobs = Rails.cache.fetch("jobs/#{@job.department}",expires_in: 24.hour) do
+      jobs = JobviteService.get_all_jobs
+      jobs = jobs.by_title.listed
+    end
   end
 
   def culture
@@ -42,8 +49,7 @@ class JobsJsonController < ApplicationController
       region = JobsJson.get_region_by_slug(params[:region])
       JobsJson.get_openings_by_region(region)
     end
-    @jobs = @jobs.by_title
-
+    @jobs = @jobs.by_title.listed
   end
 
 end

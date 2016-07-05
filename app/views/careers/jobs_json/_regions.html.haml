@@ -5,5 +5,5 @@
         =link_to region[:link] do
           %h2=region[:display].html_safe
         %hr
-        = JobsJson.get_openings_by_region(region).count
+        = JobsJson.get_openings_by_region(region).listed.count
         Openings

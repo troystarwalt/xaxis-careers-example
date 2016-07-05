@@ -6,28 +6,28 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      =link_to jobs_path, class: "nav navbar-brand" do
+      =link_to careers_jobs_path, class: "nav navbar-brand" do
         =image_tag asset_path('Xaxis_Logo_Pos_Horiz.png')
     #navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to 'Culture', culture_path
+          = link_to 'Culture', careers_culture_path
         %li.dropdown
-          =link_to "Locations", jobs_locations_path
+          =link_to "Locations", careers_jobs_locations_path
           %ul.dropdown-menu
             -JobsJson.get_current_locations.sort_by!{|x| x[:name]}.each do |location|
               %li.job-category.col-sm-4.text-center
-                =link_to location[:name], jobs_location_path(location[:slug])
+                =link_to location[:name], careers_jobs_location_path(location[:slug])
         %li.dropdown
-          =link_to "Departments", jobs_departments_path
+          =link_to "Departments", careers_jobs_departments_path
           %ul.dropdown-menu
             -JobsJson.get_current_departments.sort_by!{|x| x[:name]}.each do |department|
               %li.job-category.col-sm-4.text-center
-                =link_to department[:name], jobs_department_path(department[:slug])
+                =link_to department[:name], careers_jobs_department_path(department[:slug])
         %li
-          =link_to 'Benefits', benefits_path
+          =link_to 'Benefits', careers_benefits_path
         %li
-          =link_to 'Mobility', mobility_path
+          =link_to 'Mobility', careers_mobility_path
         %li
           =link_to '#' do
             %span.glyphicon.glyphicon-search

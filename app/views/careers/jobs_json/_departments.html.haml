@@ -12,7 +12,7 @@
     -JobsJson.get_current_departments.sort_by!{|x| x[:name]}.each do |department|
       .job-category.col-sm-4.text-center
         -if params[:location]
-          = link_to department[:name], jobs_dept_loc_path(location: params[:location], department: department[:slug])
+          = link_to department[:name], careers_jobs_dept_loc_path(location: params[:location], department: department[:slug])
           %p
 
             -@loc_jobs = JobListing.where(locationCity: location_name)
@@ -20,7 +20,7 @@
             openings
 
         -else
-          =link_to department[:name], jobs_department_path(department[:slug])
+          =link_to department[:name], careers_jobs_department_path(department[:slug])
           %p
             =@jobs.where(department: department[:name]).count
             openings
