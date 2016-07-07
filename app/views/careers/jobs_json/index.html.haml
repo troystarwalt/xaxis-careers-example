@@ -1,8 +1,4 @@
 = render partial: 'jumbotron'
-
-
-= render partial: 'regions' unless params[:location]
-
+= render partial: 'regions' unless params[:location] || params[:department]
 = render partial: 'job_list'
-
--#= render partial: 'departments'
+= render partial: 'departments'

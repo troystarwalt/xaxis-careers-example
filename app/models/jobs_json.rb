@@ -89,28 +89,28 @@ class JobsJson < ActiveRecord::Base
       {
         name: "North America",
         display: "NORTH<br>AMERICA",
-        link: "/careers/regions/north-america",
+        link: "/regions/north-america",
         slug: 'north-america',
         countries: ['United States', 'Canada']
       },
       {
         name: "Latin America",
         display: "LATIN<br>AMERICA",
-        link: "/careers/regions/latin-america",
+        link: "/regions/latin-america",
         slug: 'latin-america',
         countries: ['Colombia','Mexico']
       },
       {
         name: "Europe, Middle East and Africa",
         display: "EUROPE, MIDDLE EAST AND AFRICA",
-        link: "/careers/regions/europe-middle-east-africa",
+        link: "/regions/europe-middle-east-africa",
         slug: 'europe-middle-east-africa',
         countries: ["United Kingdom",'Germany']
       },
       {
         name: "Asia Pacific",
         display: "ASIA<br>PACIFIC",
-        link: "/careers/regions/asia-pacific",
+        link: "/regions/asia-pacific",
         slug: 'asia-pacific',
         countries: ["Singapore"]
       }

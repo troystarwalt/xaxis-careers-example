@@ -8,48 +8,55 @@ class JobviteService
   PRODUCTION_URL = "https://api.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
   STAGING_URL = "https://api-stg.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
 
+#gets last jobs return, listings if less than an hour ago, otherwise
+#pulls a new set from the api, and replaces the old set.
   def self.get_all_jobs
     if JobsJson.last && JobsJson.last.created_at > Time.now - 1.hour
-      #return JobsJson.last.jobvite_return['requisitions']
       return JobsJson.includes(:job_listings).last.job_listings
     else
-      # if JobsJson.all.count > 0
-      #   return JobsJson.includes(:job_listings).last.job_listings
-      # else
-        #for testing - no need to make api calls
-        jobs = force_pull_jobs
-        listings = jobs.jobvite_return['requisitions']
-        create_jobs(listings, jobs.id)
-        if JobsJson.all.count > 1
-          JobsJson.first.destroy
-        end
-        return jobs.job_listings
-      # end
+      return force_pull_jobs
     end
   end
 
-  def self.force_pull_jobs
+#gets api response, parses, update table
+  def self.pull_jobs
     response = get_response(PRODUCTION_URL)
     parsed_response = parse_response(response)
     update_jobs_table(parsed_response)
   end
 
+#Forces updates to tables
+  def self.force_pull_jobs
+    jobs = pull_jobs
+    listings = jobs.jobvite_return['requisitions']
+    create_jobs(listings, jobs.id)
+    if JobsJson.all.count > 1
+      JobsJson.first.destroy
+    end
+    Rails.cache.clear
+    return jobs.job_listings
+  end
+
   private
+  #gets api response
   def self.get_response url
     uri = URI(url)
     response = Net::HTTP.get(uri)
     response
   end
 
+  #parses api response to json
   def self.parse_response response
     parsed_response = JSON.parse(response)
     parsed_response
   end
 
+  #saves api response as json on AR
   def self.update_jobs_table json_response
     JobsJson.create(jobvite_return: json_response)
   end
 
+#converts a requisition from jobvite to a job_listing on AR
   def self.create_jobs(requisitions_json, job_json_id)
     requisitions_json.each do |job|
       JobListing.create(jobs_json_id: job_json_id,

@@ -31,7 +31,7 @@ class Careers::JobsJsonController < ApplicationController
     end
     @jobs = Rails.cache.fetch("jobs/#{@job.department}",expires_in: 24.hour) do
       jobs = JobviteService.get_all_jobs
-      jobs = jobs.by_title.listed
+      jobs = jobs.by_title.listed.where(department: @job.department)
     end
   end
 
