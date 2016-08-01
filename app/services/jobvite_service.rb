@@ -11,8 +11,8 @@ class JobviteService
 #gets last jobs return, listings if less than an hour ago, otherwise
 #pulls a new set from the api, and replaces the old set.
   def self.get_all_jobs
-    if JobsJson.last && JobsJson.last.created_at > Time.now - 1.hour
-      return JobsJson.includes(:job_listings).last.job_listings
+    if JobviteResponse.last && JobviteResponse.last.created_at > Time.now - 1.hour
+      return JobviteResponse.includes(:job_listings).last.job_listings
     else
       return force_pull_jobs
     end
@@ -27,14 +27,15 @@ class JobviteService
 
 #Forces updates to tables
   def self.force_pull_jobs
-    jobs = pull_jobs
-    listings = jobs.jobvite_return['requisitions']
-    create_jobs(listings, jobs.id)
-    if JobsJson.all.count > 1
-      JobsJson.first.destroy
+    jobvite_response = pull_jobs
+    listings = jobvite_response.response['requisitions']
+    create_jobs(listings)
+    update_job_counts
+    if JobviteResponse.all.count > 1
+      JobviteResponse.first.destroy
     end
     Rails.cache.clear
-    return jobs.job_listings
+    return jobvite_response.job_listings
   end
 
   private
@@ -53,32 +54,61 @@ class JobviteService
 
   #saves api response as json on AR
   def self.update_jobs_table json_response
-    JobsJson.create(jobvite_return: json_response)
+    JobviteResponse.create(response: json_response)
   end
 
 #converts a requisition from jobvite to a job_listing on AR
-  def self.create_jobs(requisitions_json, job_json_id)
+  def self.create_jobs(requisitions_json)
     requisitions_json.each do |job|
-      JobListing.create(jobs_json_id: job_json_id,
-      eId: job['eId'].to_s.strip,
-      applyLink: job['applyLink'].to_s.strip,
-      briefDescription: job['briefDescription'].to_s.strip,
-      category: job['category'].to_s.strip,
-      approveDate: job['approveDate'].to_s.strip,
-      closeDate: job['closeDate'].to_s.strip,
-      department: job['department'].to_s.strip,
-      description: job['description'].to_s.strip,
-      internalOnly: job['internalOnly'].to_s.strip,
-      jobState: job['jobState'].to_s.strip,
-      locationCity: job['locationCity'].to_s.strip,
-      locationCountry: job['locationCountry'].to_s.strip,
-      locationPostalCode: job['locationPostalCode'].to_s.strip,
-      locationState: job['locationState'].to_s.strip,
-      postingType: job['postingType'].to_s.strip,
-      private: job['private'].to_s.strip,
-      title: job['title'].to_s.strip,
-      subsidiaryName: job['subsidiaryName'].to_s.strip
-       )
-     end
+      JobviteResponse.last.job_listings.create(
+        e_id: job['eId'],
+        region: job['region'],
+        region_param: job['region'].parameterize,
+        bonus: job['bonus'],
+        title: job['title'],
+        job_type: job['jobType'],
+        private: job['private'],
+        category: job['category'],
+        job_state: job['jobState'],
+        location: job['location'],
+        send_date: job['sendDate'],
+        workflow: job['workflow'],
+        apply_link: job['applyLink'],
+        close_date: job['closeDate'],
+        company_id: job['companyId'],
+        job_source: job['jobSource'],
+        department: job['department'],
+        department_param: job['department'].parameterize,
+        description: job['description'],
+        posting_type: job['postingType'],
+        distribution: job['distribution'],
+        internal_only: job['internalOnly'],
+        location_city: job['locationCity'],
+        location_city_param: job['locationCity'].parameterize,
+        subsidiary_id: job['subsidiaryId'],
+        subsidiary_name: job['subsidiaryName'],
+        location_state: job['locationState'],
+        requisition_id: job['requisitionId'],
+        last_updated_date: job['lastUpdatedDate'],
+        location_country: job['locationCountry'],
+        brief_description: job['briefDescription'],
+        evaluation_form_name: job['evaluationFormName'],
+        location_postal_code: job['locationPostalCode'],
+        primary_hiring_manager_email: job['primaryHiringManagerEmail']
+      )
+    end
   end
+
+  def update_job_counts
+    Department.all.each do |department|
+      department.update(job_count: JobListing.where(department: department.name).count)
+    end
+    Location.all.each do |location|
+      location.update(job_count: JobListing.where(location_city: location.name).count)
+    end
+    Region.all.each do |region|
+      region.update(job_count: JobListing.where(region: region.name).count)
+    end
+  end
+
 end

@@ -1,0 +1,25 @@
+= render partial: 'partials/jumbotron', locals: {subtitle: @job.department}
+.job-show
+  %h2.title-text.text-center
+    = @job.title
+  .container.job-show-body
+    .job-subtitle
+      = @job.subsidiary_name
+      |
+      = @job.department
+      |
+      = @job.location_city
+      |
+      = @job.location_country
+    .job-description_detailed
+      = @job.description.html_safe
+
+    =link_to "apply", @job.apply_link, class: 'btn btn-primary btn-lg apply-btn'
+    =link_to "apply later", "#", class: 'btn btn-primary btn-lg apply-btn'
+
+  .like-listings
+    %h3.text-center Related Positions
+    = render partial: 'job_list', locals: {jobs: @jobs}
+    %hr
+    .container
+      %p powered by JobVite

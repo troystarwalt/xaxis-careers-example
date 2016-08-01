@@ -1,0 +1,9 @@
+.container
+  .row
+    - JobListing.pluck(:location_city).uniq.sort!.each do |location|
+      .col-xs-4.text-center
+        =link_to jobs_location_path(location.parameterize) do
+          =location
+          %br/
+          = JobListing.where(location_city: location).count
+          openings

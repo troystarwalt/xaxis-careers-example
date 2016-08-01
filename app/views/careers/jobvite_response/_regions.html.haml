@@ -1,0 +1,9 @@
+.selector
+  .row
+    -Region.all.each do |region|
+      .text-center.selector-box.col-sm-3
+        =link_to region[:slug] do
+          %h2=region[:display].html_safe
+        %hr
+        = JobListing.in_region(region[:slug]).count
+        Openings

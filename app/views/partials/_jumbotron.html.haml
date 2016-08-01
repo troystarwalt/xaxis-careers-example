@@ -1,0 +1,14 @@
+-model = @location || @department || @region
+-if model
+  .jumbotron
+    =image_tag model.hero_image
+    .overlay-text
+      %h2.text-center
+        =model.class.find_by_slug(model.slug).name
+-else
+  .jumbotron
+    =image_tag asset_path('hero-image.png')
+    -if action_name == 'show'
+      .overlay-text
+        %h2.text-center
+          =subtitle

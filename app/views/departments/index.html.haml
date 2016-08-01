@@ -1,0 +1,9 @@
+.selector
+  .row
+    -@departments.all.each do |department|
+      .text-center.selector-box.col-sm-3
+        =link_to department_path(department.slug) do
+          %h2=department.name.upcase.html_safe
+        %hr
+        = department.job_count
+        Openings

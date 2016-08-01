@@ -1,0 +1,24 @@
+= form_for @department, html: { multipart: true } do |f|
+  - if @department.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@department.errors.count, "error")} prohibited this department from being saved:"
+      %ul
+        - @department.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :slug
+    = f.text_field :slug
+  .field
+    = image_tag(@department.hero_image_url) if @department.hero_image?
+    = f.label :hero_image
+    = f.file_field :hero_image
+  -if @department.hero_image?
+    .field
+      = f.label :remove_image
+      = f.check_box :remove_avatar
+  .actions
+    = f.submit 'Save'
