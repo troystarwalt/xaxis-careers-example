@@ -16,12 +16,12 @@
                 -next
               -else
                 %dt.job-title
-                  =link_to careers_job_path(job.eId) do
+                  =link_to careers_job_path(job.e_id) do
                     =job.title
-                    -if job.subsidiaryName != "Xaxis"
+                    -if job.subsidiary_name != "Xaxis"
                       |
-                      =job.subsidiaryName
+                      =job.subsidiary_name
                 %dd.text-right
-                  ="#{job.locationCity}, #{job.locationCountry}"
+                  ="#{job.location_city}, #{job.location_country}"
       -else
         Nah

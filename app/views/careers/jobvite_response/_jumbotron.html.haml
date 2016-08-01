@@ -3,8 +3,8 @@
     =image_tag asset_path('hero-image.png')
     .overlay-text
       %h2.text-center
-        =JobsJson.get_department_name_from_slug(params[:department]) if params[:department]
-        =JobsJson.get_location_name_from_slug(params[:location]) if params[:location]
+        =JobviteResponse.get_department_name_from_slug(params[:department]) if params[:department]
+        =JobviteResponse.get_location_name_from_slug(params[:location]) if params[:location]
 -else
   .jumbotron
     =image_tag asset_path('hero-image.png')

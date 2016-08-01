@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  eId: MyString
-  applyLink: MyString
+  e_id: MyString
+  apply_link: MyString
   briefDescription: MyString
   category: MyString
   approveDate: 2016-06-29 11:05:09
@@ -11,18 +11,18 @@ one:
   description: MyText
   internalOnly: false
   jobState: MyString
-  locationCity: MyString
-  locationCountry: MyString
+  location_city: MyString
+  location_country: MyString
   locationPostalCode: MyString
   locationState: MyString
   postingType: MyString
   private: false
   title: MyString
-  jobsjson_id: 
+  JobviteResponse_id: 
 
 two:
-  eId: MyString
-  applyLink: MyString
+  e_id: MyString
+  apply_link: MyString
   briefDescription: MyString
   category: MyString
   approveDate: 2016-06-29 11:05:09
@@ -31,11 +31,11 @@ two:
   description: MyText
   internalOnly: false
   jobState: MyString
-  locationCity: MyString
-  locationCountry: MyString
+  location_city: MyString
+  location_country: MyString
   locationPostalCode: MyString
   locationState: MyString
   postingType: MyString
   private: false
   title: MyString
-  jobsjson_id: 
+  JobviteResponse_id: 

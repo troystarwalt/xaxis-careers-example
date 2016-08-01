@@ -1,18 +1,17 @@
-class Careers::JobsJsonController < ApplicationController
+class Careers::JobviteResponseController < ApplicationController
 
   def index
     @title = "Xaxis Careers"
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
       JobviteService.get_all_jobs
     end
-    @jobs = @jobs.by_title.listed
     if params[:location]
       @title << " | #{params[:location].gsub('-',' ').titleize}"
-      @jobs = @jobs.where(locationCity: params[:location].gsub('-',' ').titleize)
+      @jobs = @jobs.in_location(params[:location])
     end
     if params[:department]
       @title << " | #{params[:department].gsub('-',' ').titleize}"
-      @jobs = @jobs.where(department: params[:department].gsub('-',' ').titleize)
+      @jobs = @jobs.in_department(params[:department])
     end
   end
 
@@ -20,14 +19,13 @@ class Careers::JobsJsonController < ApplicationController
     @title = "Xaxis Careers | Departments"
     @jobs = Rails.cache.fetch("jobs/departments}",expires_in: 24.hour) do
       jobs = JobviteService.get_all_jobs
-      jobs = jobs.by_title.listed
+      jobs = jobs.in_department(params[:department])
     end
   end
 
   def show
-    @job = Rails.cache.fetch("job/#{params[:eId]}", expires_in: 24.hour) do
-      jobs = JobviteService.get_all_jobs
-      jobs.detect{|x| x['eId'] == params[:eId]}
+    @job = Rails.cache.fetch("job/#{params[:e_id]}", expires_in: 24.hour) do
+      JobListing.find_by(e_id: params[:e_id])
     end
     @title = "Xaxis Careers | " << @job.title
     @subtitle = @job.title
@@ -36,7 +34,7 @@ class Careers::JobsJsonController < ApplicationController
     end
     @jobs = Rails.cache.fetch("jobs/#{@job.department}",expires_in: 24.hour) do
       jobs = JobviteService.get_all_jobs
-      jobs = jobs.by_title.listed.where(department: @job.department)
+      jobs = jobs.in_department(@job.department_param)
     end
   end
 
@@ -55,10 +53,9 @@ class Careers::JobsJsonController < ApplicationController
   def region_index
     @title = "Xaxis Careers | Regions"
     @jobs = Rails.cache.fetch("jobs/region/#{params[:region]}",expires_in: 24.hour) do
-      region = JobsJson.get_region_by_slug(params[:region])
-      JobsJson.get_openings_by_region(region)
+      region = params[:region]
+      JobviteResponse.last.job_listings.in_region(region)
     end
-    @jobs = @jobs.by_title.listed
   end
 
 end

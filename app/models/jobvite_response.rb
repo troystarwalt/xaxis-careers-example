@@ -1,5 +1,6 @@
-class JobsJson < ActiveRecord::Base
+class JobviteResponse < ActiveRecord::Base
   has_many :job_listings, dependent: :destroy
+
   OPTIONS = {
     locations: [
       {
@@ -90,29 +91,25 @@ class JobsJson < ActiveRecord::Base
         name: "North America",
         display: "NORTH<br>AMERICA",
         link: "/regions/north-america",
-        slug: 'north-america',
-        countries: ['United States', 'Canada']
+        slug: 'north-america'
       },
       {
         name: "Latin America",
         display: "LATIN<br>AMERICA",
         link: "/regions/latin-america",
-        slug: 'latin-america',
-        countries: ['Colombia','Mexico']
+        slug: 'latin-america'
       },
       {
         name: "Europe, Middle East and Africa",
         display: "EUROPE, MIDDLE EAST AND AFRICA",
         link: "/regions/europe-middle-east-africa",
-        slug: 'europe-middle-east-africa',
-        countries: ["United Kingdom",'Germany']
+        slug: 'europe-middle-east'
       },
       {
         name: "Asia Pacific",
         display: "ASIA<br>PACIFIC",
         link: "/regions/asia-pacific",
-        slug: 'asia-pacific',
-        countries: ["Singapore"]
+        slug: 'asia-pacific'
       }
     ]
   }.freeze
@@ -150,7 +147,7 @@ class JobsJson < ActiveRecord::Base
   end
 
   def self.select_by_location(jobs,location)
-    jobs.select!{|job| job if job['locationCity'].downcase.gsub(' ','') == location}
+    jobs.select!{|job| job if job['location_city'].downcase.gsub(' ','') == location}
   end
 
   def self.select_by_department(jobs,department)
@@ -160,8 +157,5 @@ class JobsJson < ActiveRecord::Base
   def self.get_region_by_slug(region_slug)
     region = OPTIONS[:regions].detect{|hash| hash[:slug] == region_slug}
   end
-
-  scope :get_openings_by_region, -> (region){last.job_listings.where(locationCountry: region[:countries])}
-
 
 end

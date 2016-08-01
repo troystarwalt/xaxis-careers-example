@@ -1,9 +1,9 @@
 .regions
   .row
-    -JobsJson.get_regions.each do |region|
+    -JobviteResponse.get_regions.each do |region|
       .text-center.region.col-sm-3
         =link_to region[:link] do
           %h2=region[:display].html_safe
         %hr
-        = JobsJson.get_openings_by_region(region).listed.count
+        = JobListing.in_region(region[:slug]).count
         Openings
