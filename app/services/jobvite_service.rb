@@ -30,6 +30,7 @@ class JobviteService
     jobvite_response = pull_jobs
     listings = jobvite_response.response['requisitions']
     create_jobs(listings)
+    update_job_counts
     if JobviteResponse.all.count > 1
       JobviteResponse.first.destroy
     end
@@ -97,4 +98,17 @@ class JobviteService
       )
     end
   end
+
+  def update_job_counts
+    Department.all.each do |department|
+      department.update(job_count: JobListing.where(department: department.name).count)
+    end
+    Location.all.each do |location|
+      location.update(job_count: JobListing.where(location_city: location.name).count)
+    end
+    Region.all.each do |region|
+      region.update(job_count: JobListing.where(region: region.name).count)
+    end
+  end
+
 end

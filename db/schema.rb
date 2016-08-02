@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629150509) do
+ActiveRecord::Schema.define(version: 20160802001533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "hero_image"
+    t.integer  "job_count"
+  end
 
   create_table "job_listings", force: :cascade do |t|
     t.string   "e_id"
@@ -58,11 +67,30 @@ ActiveRecord::Schema.define(version: 20160629150509) do
 
   add_index "job_listings", ["jobvite_response_id"], name: "index_job_listings_on_jobvite_response_id", using: :btree
 
+
   create_table "jobvite_responses", force: :cascade do |t|
     t.jsonb    "response"
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "hero_image"
+    t.integer  "job_count"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "hero_image"
+    t.integer  "job_count"
   end
 
   add_foreign_key "job_listings", "jobvite_responses"
