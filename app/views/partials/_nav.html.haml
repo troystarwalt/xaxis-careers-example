@@ -1,4 +1,4 @@
-%nav.navbar.navbar-default
+%nav.navbar.navbar-default.navbar-fixed-top
   .container-fluid
     .navbar-header
       %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
@@ -15,15 +15,17 @@
         %li.dropdown
           =link_to "Locations", locations_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
-            -JobListing.pluck(:location_city).uniq.sort!.each do |location|
-              %li.job-category.col-sm-4.text-center.hidden-xs
-                =link_to location, location_path(location.parameterize)
+            .container
+              -JobListing.pluck(:location_city).uniq.sort!.each do |location|
+                %li.job-category.col-sm-4.text-center.hidden-xs
+                  =link_to location, location_path(location.parameterize)
         %li.dropdown
           =link_to "Departments", departments_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
-            -JobListing.pluck(:department).uniq.sort!.each do |department|
-              %li.job-category.col-sm-4.text-center
-                =link_to department, department_path(department.parameterize)
+            .container
+              -JobListing.pluck(:department).uniq.sort!.each do |department|
+                %li.job-category.col-sm-4.text-center
+                  =link_to department, department_path(department.parameterize)
         %li
           =link_to 'Benefits', benefits_path
         %li
