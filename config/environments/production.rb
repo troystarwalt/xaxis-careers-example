@@ -1,4 +1,6 @@
 Rails.application.configure do
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:49ea443e22c02a7c310349e4c6483386@catfish.redistogo.com:11133/
+'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

@@ -14,6 +14,8 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 gem "mini_magick"
 gem 'rack-wwwhisper', '~> 1.0'
+gem 'redis'
+gem 'resque', require: 'resque/server'
 
 group :development, :test do
   gem 'byebug'
