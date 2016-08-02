@@ -13,6 +13,8 @@ gem "html_truncator"
 gem 'bootstrap-sass'
 gem 'carrierwave'
 gem "mini_magick"
+gem 'rack-wwwhisper', '~> 1.0'
+
 group :development, :test do
   gem 'byebug'
 end
