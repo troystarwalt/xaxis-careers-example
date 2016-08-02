@@ -10,8 +10,8 @@ class RegionsController < ApplicationController
   # GET /regions/1
   # GET /regions/1.json
   def show
-    @jobs = Rails.cache.fetch("jobs/regions/#{@region.slug}", expires_in: 1.hour) do 
-      JobListing.where(region_param: params[:id])
+    @jobs = Rails.cache.fetch("jobs/regions/#{@region.slug}", expires_in: 1.hour) do
+      JobListing.in_region(@region.slug)
     end
   end
 

@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   # GET /locations/1.json
   def show
     @jobs = Rails.cache.fetch("jobs/locations/#{@location.slug}", expires_in: 1.hour) do
-      JobListing.where(location_city_param: params[:id])
+      JobListing.in_location(@location.slug)
     end
     subtitle = @location.name
   end

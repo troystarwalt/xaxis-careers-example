@@ -3,7 +3,7 @@ class JobviteResponseController < ApplicationController
   def index
     @title = "Xaxis Careers"
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
-      JobviteService.get_all_jobs
+      JobListing.all
     end
   end
 
@@ -17,9 +17,8 @@ class JobviteResponseController < ApplicationController
     if @job.private
       return redirect_to :back
     end
-    @jobs = Rails.cache.fetch("jobs/department/#{@job.department_param}",expires_in: 24.hour) do
-      jobs = JobviteService.get_all_jobs
-      jobs = jobs.in_department(@job.department_param)
+    @jobs = Rails.cache.fetch("jobs/departments/#{@job.department_param}",expires_in: 24.hour) do
+      jobs = JobListing.in_department(@job.department_param)
     end
   end
 
