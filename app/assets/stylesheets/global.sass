@@ -8,6 +8,8 @@ body
 .content-wrapper
   margin-top: 80px
 
+
+/* FOOTER ELEMENTS */
 .btn-social
   border-radius: 100%
   background-color: #202020
@@ -15,9 +17,10 @@ body
   i
     color: #fff
   &:hover
-    background-color: #202020
-    i
-      color: $xaxis-blue-color
+    background-color: $xaxis-blue-color
+
+.btn-social:not(:last-child)
+  margin-right: 5%
 
 footer
   background-color: #f8f8f8
@@ -29,3 +32,22 @@ footer
   align-items: center
   .base-footer
     margin: 0 auto
+    width: 80%
+    p
+      margin-bottom: 1.5em
+    .footer-link-container
+      display: flex
+      justify-content: space-around
+      border-top: 1px solid $primary-color
+      padding-top: 1.5em
+      margin-top: 2em
+      a
+        &.footer-link:link, &.footer-link:visited
+          color: $primary-color
+        &.footer-link:hover
+          text-decoration: none
+          color: $xaxis-blue-color
+
+
+.uppercase
+  text-transform: uppercase
