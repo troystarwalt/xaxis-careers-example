@@ -17,7 +17,7 @@ class JobviteResponseController < ApplicationController
     if @job.private
       return redirect_to :back
     end
-    @jobs = Rails.cache.fetch("jobs/#{@job.department}",expires_in: 24.hour) do
+    @jobs = Rails.cache.fetch("jobs/department/#{@job.department_param}",expires_in: 24.hour) do
       jobs = JobviteService.get_all_jobs
       jobs = jobs.in_department(@job.department_param)
     end
