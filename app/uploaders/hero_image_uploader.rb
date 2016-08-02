@@ -15,7 +15,7 @@ class HeroImageUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    ActionController::Base.helpers.asset_path('hero-image.png')
+    "http://placehold.it/1600x900"
   end
 
   # Process files as they are uploaded:
