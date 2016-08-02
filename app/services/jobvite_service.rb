@@ -30,11 +30,11 @@ class JobviteService
     jobvite_response = pull_jobs
     listings = jobvite_response.response['requisitions']
     create_jobs(listings)
-    update_job_counts
     if JobviteResponse.all.count > 1
       JobviteResponse.first.destroy
     end
     Rails.cache.clear
+    update_job_counts
     return jobvite_response.job_listings
   end
 
@@ -99,7 +99,7 @@ class JobviteService
     end
   end
 
-  def update_job_counts
+  def self.update_job_counts
     Department.all.each do |department|
       department.update(job_count: JobListing.where(department: department.name).count)
     end
