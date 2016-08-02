@@ -16,7 +16,8 @@ gem "mini_magick"
 gem 'rack-wwwhisper', '~> 1.0'
 gem 'redis'
 gem 'resque', require: 'resque/server'
-
+gem 'rails_12factor'
+gem 'friendly_id'
 group :development, :test do
   gem 'byebug'
 end
