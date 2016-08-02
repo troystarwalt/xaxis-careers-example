@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20160802001533) do
 
   add_index "job_listings", ["jobvite_response_id"], name: "index_job_listings_on_jobvite_response_id", using: :btree
 
-
   create_table "jobvite_responses", force: :cascade do |t|
     t.jsonb    "response"
     t.string   "status"
