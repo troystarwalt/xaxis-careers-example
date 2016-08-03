@@ -7,7 +7,7 @@ $(document).ready(function (){
 });
 
 function setNavbarShadow(){
-  var distanceToScroll = $('.jumbotron').outerHeight();
+  var distanceToScroll = $('.jumbotron').outerHeight()-15;
   if($(window).scrollTop() >= distanceToScroll){
     $('nav').addClass('navbar-shadowed');
   }else{

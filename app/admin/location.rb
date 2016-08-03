@@ -4,14 +4,19 @@ ActiveAdmin.register Location do
     f.inputs "Location" do
       f.input :name
       f.input :slug
-      f.input :hero_image, as: :file
+      f.input :hero_image, as: :file, :hint => f.object.hero_image.present? \
+                                                ? image_tag(f.object.hero_image.url(:thumb))
+                                                : content_tag(:span, "no hero image yet")
+      if f.object.hero_image.present?
+        f.input :remove_hero_image, as: :boolean, required: false, label: "Remove Image"
+      end
     end
     f.submit
   end
 
   permit_params do
     permitted = [:permitted, :attributes]
-    permitted << [:hero_image, :name, :slug] if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
+    permitted << [:hero_image, :name, :slug, :remove_hero_image] if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
     permitted
   end
 

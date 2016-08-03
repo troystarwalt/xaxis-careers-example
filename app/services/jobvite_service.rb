@@ -28,6 +28,9 @@ class JobviteService
 #Forces updates to tables
   def self.force_pull_jobs
     jobvite_response = pull_jobs
+    unless jobvite_response.response['status']['code'] == 200
+      return JobviteResponse.includes(:job_listings).last.job_listings
+    end
     listings = jobvite_response.response['requisitions']
     create_jobs(listings)
     if JobviteResponse.all.count > 1
