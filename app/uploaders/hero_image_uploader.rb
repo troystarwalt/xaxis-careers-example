@@ -15,7 +15,11 @@ class HeroImageUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    "http://placehold.it/1600x900"
+    if version_name == :thumb
+      "http://placehold.it/160x90"
+    else
+      "http://placehold.it/1600x900"
+    end
   end
 
   # Process files as they are uploaded:
@@ -26,9 +30,9 @@ class HeroImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
+  version :thumb do
+    process :resize_to_fit => [50, 50]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

@@ -4,7 +4,7 @@ class RegionsController < ApplicationController
   # GET /regions
   # GET /regions.json
   def index
-    @regions = Region.all
+
   end
 
   # GET /regions/1

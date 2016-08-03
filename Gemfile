@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15'
+gem 'mini_racer'
 gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
@@ -18,6 +19,11 @@ gem 'redis'
 gem 'resque', require: 'resque/server'
 gem 'rails_12factor'
 gem 'friendly_id'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+gem 'cancan' # or cancancan
+gem 'draper'
+gem 'pundit'
 group :development, :test do
   gem 'byebug'
 end
