@@ -1,6 +1,8 @@
 .uppercase
   text-transform: uppercase
 
+// Removes padding from Photo/Text
+
 .row.no-gutter
   margin-right: 0
   margin-left: 0
@@ -11,7 +13,10 @@
 
 .restrict-img
   max-width: 100%
+  width: 100%
+  height: auto
+  display: block
 
-@media (min-width: 500px)
+@media (max-width: 767px)
   .single-row
     text-align: center
