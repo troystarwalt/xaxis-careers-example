@@ -1,5 +1,5 @@
 .container
-  %h1 culture
+  %h1.uppercase culture
   %a{href:'https://www.xaxis.com/press/view/xaxis-named-as-one-of-uks-best-workplaces'}Xaxis Press Release
   %p
     LONDON (May 14, 2015) - Xaxis, the world’s largest programmatic media and technology platform, has been named as one of the UK’s Best Workplaces by Great Place to Work® in its prestigious annual list.
@@ -9,3 +9,26 @@
     “We are excited to receive the recognition that comes with being a part of the Best Workplaces Programme,” said Nicolas Bidon, Managing Director, Xaxis UK.  “We have tremendous pride in what we do and want to continue to attract and retain the best in the industry. Participating in the Best Workplaces Programme is a strong platform for us to continue to develop our employer brand.
   %p
     “Xaxis is a leader in programmatic advertising – a fast developing field at the convergence of data science and advertising. While technology is transforming the media industry, it will always remain a people business. And despite our market leadership, hiring people is still one of our biggest challenges as we are competing not only with others employers in advertising but also industries such as finance that are also seeing a growing demand for the best data scientists.”
+  .flex-container
+    .flex-item.single-column
+      = image_tag "https://unsplash.it/350/600/?random", class: "restrict-img vertical-img"
+    .flex-item.single-column
+      .text-block.tb-top
+        %h3 Lorem ipsum dolor sit amet
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      = image_tag "http://placekitten.com/350/300", class: "restrict-img"
+    .flex-item.single-column
+      = image_tag "https://unsplash.it/350/300/?random", class: "restrict-img"
+      .text-block.tb-top
+        %h3 Lorem ipsum dolor sit amet
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  .flex-container
+    .flex-item.single-column
+      .text-block-light.tb-bottom
+        %h3 Lorem ipsum dolor sit amet
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      .text-block.tb-bottom
+        %h3 Lorem ipsum dolor sit amet
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    .flex-item-2.single-column
+      = image_tag "https://unsplash.it/760/650/?random", class: "restrict-img wide-img"

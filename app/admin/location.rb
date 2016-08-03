@@ -11,7 +11,7 @@ ActiveAdmin.register Location do
 
   permit_params do
     permitted = [:permitted, :attributes]
-    permitted << :hero_image if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
+    permitted << [:hero_image, :name, :slug] if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
     permitted
   end
 
@@ -31,7 +31,7 @@ ActiveAdmin.register Location do
     end
     actions
   end
-  
+
   show do
     attributes_table do
       row :id

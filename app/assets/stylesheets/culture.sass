@@ -1,0 +1,35 @@
+.flex-container
+  display: flex
+  flex-flow: row
+  justify-content: space-between
+
+.flex-item
+  width: 33.3333%
+  // height: 100%
+
+.flex-item-2
+  width: 66.66666666%
+
+.text-block, .text-block-light
+  display: flex
+  flex-flow: column
+  align-items: center
+  justify-content: center
+  padding: 4%
+  // height: 50%
+  width: 100%
+  h3
+    font-size: 2em
+  p
+    font-size: 1em
+
+.text-block
+  background-color: lighten($primary-color, 10%)
+
+@media (max-width: 768px)
+  .flex-container
+    flex-flow: column
+  .flex-item, .flex-item-2
+    width: 100%
+    height: auto
+  .text-block, .text-block-light
