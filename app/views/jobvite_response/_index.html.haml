@@ -1,4 +1,5 @@
-= render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
-= render partial: 'regions/index' unless params[:location] || params[:department]
-= render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
-= render partial: 'partials/brands'
+.container-fluid
+  = render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
+  = render partial: 'regions/index' unless params[:location] || params[:department]
+  = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
+  = render partial: 'partials/brands'

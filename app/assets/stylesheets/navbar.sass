@@ -10,11 +10,14 @@
       &:hover
         background-color: #D8D8D8
       a
-        padding: 23px 18px 22px
-        font-size: 12px
+        padding: 23px 18px 22px 18px
+        font-size: 14px
+  .navbar-right
+    margin-right: 0 !important
   .navbar-brand
     position: absolute
     height: 100%
+    margin-left: 0 !important
     img
       height: 43px
       position: relative
@@ -49,13 +52,20 @@
         display: block
         li
           a
+            padding: 0
             color: $primary-color
             text-decoration: none
+            font-family: 'Gotham-Book'
           &:hover
-            background-color: #f5f5f5
             a
+              font-family: 'Gotham-Bold'
               color: $xaxis-blue-color
-@media (max-width: $size-sm)
-  .navbar-collapse.collapse.in, .navbar-collapse.collapsing
-    background-color: #D8D8D8
-    max-height: calc(100% - 65px) !important
+
+  @media (max-width: $size-sm)
+    .navbar-collapse.collapse.in, .navbar-collapse.collapsing
+      background-color: #D8D8D8
+      max-height: calc(100% - 65px) !important
+    .navbar-brand
+      margin-left: 15px !important
+    .navbar-toggle
+      margin-right: 30px !important

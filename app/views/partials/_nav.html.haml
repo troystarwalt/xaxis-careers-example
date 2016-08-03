@@ -7,29 +7,29 @@
         %span.icon-bar
         %span.icon-bar
       =link_to root_path, class: "nav navbar-brand" do
-        =image_tag asset_path('Xaxis_Logo_Pos_Horiz.png')
+        =image_tag asset_path('Xaxis_Logo_Pos_Vert.png')
     #navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to 'Culture', culture_path
+          = link_to 'CULTURE', culture_path
         %li.dropdown
-          =link_to "Locations", locations_path
+          =link_to "LOCATIONS", locations_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -Location.all.order(:name).each do |location|
                 %li.job-category.col-sm-4.text-center.hidden-xs
-                  =link_to location.name, location_path(location.slug)
+                  =link_to location.name.upcase, location_path(location.slug)
         %li.dropdown
-          =link_to "Departments", departments_path
+          =link_to "DEPARTMENTS", departments_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -Department.all.order(:name).each do |department|
                 %li.job-category.col-sm-4.text-center
-                  =link_to department.name, department_path(department.slug)
+                  =link_to department.name.upcase, department_path(department.slug)
         %li
-          =link_to 'Benefits', benefits_path
+          =link_to 'BENEFITS', benefits_path
         %li
-          =link_to 'Mobility', mobility_path
+          =link_to 'MOBILITY', mobility_path
         %li
           =link_to '#' do
             %span.glyphicon.glyphicon-search
