@@ -13,5 +13,4 @@ function setNavbarShadow(){
   }else{
     $('nav').removeClass('navbar-shadowed');
   }
-
 }
