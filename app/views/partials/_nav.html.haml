@@ -1,5 +1,5 @@
 %nav.navbar.navbar-default.navbar-fixed-top
-  .container-fluid
+  .container
     .navbar-header
       %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
         %span.sr-only Toggle navigation
@@ -11,16 +11,21 @@
     #navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to 'CULTURE', culture_path
+          = link_to culture_path do
+            CULTURE
         %li.dropdown
-          =link_to "LOCATIONS", locations_path
+          =link_to locations_path do
+            LOCATIONS
+            %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -Location.all.order(:name).each do |location|
                 %li.job-category.col-sm-4.text-center.hidden-xs
                   =link_to location.name.upcase, location_path(location.slug)
         %li.dropdown
-          =link_to "DEPARTMENTS", departments_path
+          =link_to departments_path  do
+            DEPARTMENTS
+            %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -Department.all.order(:name).each do |department|
