@@ -1,9 +1,9 @@
-.selector
+.regions
   .row
-    -@regions.all.each do |region|
-      .text-center.selector-box.col-sm-3
+    -@all_regions.all.each do |region|
+      .text-center.region.col-sm-3
         =link_to region_path(region.slug) do
           %h2=region.name.upcase.html_safe
-        %hr
-        = region.job_count
-        Openings
+          %hr
+          = region.job_count
+          Openings

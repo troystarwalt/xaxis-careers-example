@@ -5,10 +5,18 @@
     %title= @title
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+<<<<<<< HEAD
     = javascript_include_tag src="https://use.fontawesome.com/fafebbc844.js"
+=======
+    %script{src: "//use.fontawesome.com/fafebbc844.js"}
+>>>>>>> 4e9092b25487cc58f5df487ec631e52fafe60b7e
     = csrf_meta_tags
   %body{class: "#{controller_name} #{action_name}"}
     = render partial: 'partials/nav'
     .content-wrapper
+      -if notice
+        %p.notice= notice
+      -if alert
+        %p.alert= alert
       = yield
       = render partial: 'partials/footer'

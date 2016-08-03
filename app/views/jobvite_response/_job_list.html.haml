@@ -10,7 +10,7 @@
           -else
             -department_array = jobs.pluck(:department)
           -department_array.each do |department|
-            %h2= department unless params[:department] || action_name == 'show'
+            %h2= department unless controller_name == 'department'
             -jobs.where(department: department).each do |job|
               -if action_name == 'show' && job == @job
                 -next

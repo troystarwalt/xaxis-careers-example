@@ -15,20 +15,43 @@ class HeroImageUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    '/assets/hero-image.png'
+    case version_name
+    when :thumb
+      "http://placehold.it/50x40"
+    when :small
+      "http://placehold.it/100x80"
+    when :medium
+      "http://placehold.it/200x160"
+    when :large
+      "http://placehold.it/400x225"
+    when :extra_large
+      "http://placehold.it/800x450"
+    when :jumbotron
+      "http://placehold.it/1600x900"
+    else
+      "http://placehold.it/1600x900"
+    end
   end
 
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
+  version :thumb do
+    process :resize_to_fill => [50, 40]
+  end
+  version :small do
+    process :resize_to_fill => [100, 80]
+  end
+  version :medium do
+    process :resize_to_fill => [200, 160]
+  end
+  version :large do
+    process :resize_to_fill => [400, 225]
+  end
+  version :extra_large do
+    process :resize_to_fill => [800, 450]
+  end
+  version :jumbotron do
+    process :resize_to_fill => [1600, 900]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -38,8 +61,8 @@ class HeroImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "#{model.name.parameterize}.png" if original_filename
+  end
 
 end
