@@ -5,25 +5,27 @@
   border-radius: 0
   height: 65px
   margin-bottom: 0
-  .container-fluid
-    ul
-      li
-        &:hover
-          background-color: #f8f8f8
-        a
-          padding: 22px 18px
-          font-size: 12px
+  ul
+    li
+      &:hover
+        background-color: #f8f8f8
+      a
+        padding: 22px 18px
+        font-size: 12px
   .navbar-brand
+    position: absolute
+    height: 100%
     img
       height: 43px
-      margin: 0
-      padding: 0
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
   .navbar-toggle
-    width: 60px
-    height: 60px
+  .navbar-toggle
+    margin-top: 14px
     .icon-bar
       background-color: black
-      width: 40px
+      width: 20px
       position: relative
       transition: all 500ms ease-in-out
   .navbar-toggle.active
