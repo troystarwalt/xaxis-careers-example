@@ -51,16 +51,17 @@
         width: 100vw
         display: block
         li
+          padding: 20px 0
           a
             padding: 0
             color: $primary-color
             text-decoration: none
-            font-family: 'Gotham-Book'
-          &:hover
-            a
-              font-family: 'Gotham-Bold'
+            &:hover
               color: $xaxis-blue-color
-
+.navbar-shadowed
+  -webkit-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1)
+  -moz-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1)
+  box-shadow: 0px 5px 20px -5px rgba(192,192,192,1)
   @media (max-width: $size-sm)
     .navbar-collapse.collapse.in, .navbar-collapse.collapsing
       background-color: #D8D8D8

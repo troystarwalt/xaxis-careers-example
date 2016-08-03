@@ -2,12 +2,14 @@
 -if model
   .jumbotron
     =image_tag model.hero_image
+    = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
     .overlay-text
       %h2.text-center
         =model.class.find_by_slug(model.slug).name
 -else
   .jumbotron
     =image_tag asset_path('hero-image.png')
+    = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
     -if action_name == 'show'
       .overlay-text
         %h2.text-center

@@ -1,10 +1,10 @@
 .container
-  .departments
+  .departments-area
     .row
       -@departments.all.each do |department|
         .text-center.department.col-sm-4
           =link_to department_path(department.slug) do
-            %h2=department.name.upcase.html_safe
+            %h2=department.name.upcase
           %hr
           = department.job_count
           Openings
