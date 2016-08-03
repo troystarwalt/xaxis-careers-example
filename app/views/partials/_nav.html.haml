@@ -16,16 +16,16 @@
           =link_to "Locations", locations_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
-              -JobListing.pluck(:location_city).uniq.sort!.each do |location|
+              -Location.all.order(:name).each do |location|
                 %li.job-category.col-sm-4.text-center.hidden-xs
-                  =link_to location, location_path(location.parameterize)
+                  =link_to location.name, location_path(location.slug)
         %li.dropdown
           =link_to "Departments", departments_path
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
-              -JobListing.pluck(:department).uniq.sort!.each do |department|
+              -Department.all.order(:name).each do |department|
                 %li.job-category.col-sm-4.text-center
-                  =link_to department, department_path(department.parameterize)
+                  =link_to department.name, department_path(department.slug)
         %li
           =link_to 'Benefits', benefits_path
         %li

@@ -5,7 +5,7 @@
     %title= @title
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = javascript_include_tag src="https://use.fontawesome.com/fafebbc844.js"
+    %script{src: "//use.fontawesome.com/fafebbc844.js"}
     = csrf_meta_tags
   %body{class: "#{controller_name} #{action_name}"}
     = render partial: 'partials/nav'
