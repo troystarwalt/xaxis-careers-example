@@ -1,17 +1,20 @@
 ActiveAdmin.register Department do
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+  form html: { :multipart => true } do |f|
+    f.inputs "Department" do
+      f.input :name
+      f.input :slug
+      f.input :hero_image, as: :file
+    end
+    f.submit
+  end
+
+  permit_params do
+    permitted = [:permitted, :attributes]
+    permitted << :hero_image if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
+    permitted
+  end
+
   controller do
     def find_resource
       scoped_collection.friendly.find(params[:id])
@@ -25,6 +28,20 @@ ActiveAdmin.register Department do
     column :hero_image do |model|
       image_tag model.hero_image.url(:thumb)
     end
+    actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :slug
+      row :hero_image do |model|
+        image_tag model.hero_image.url(:small)
+      end
+      row :hero_image_link do |model|
+        model.hero_image.url
+      end
+    end
+  end
 end
