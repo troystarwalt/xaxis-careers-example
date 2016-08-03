@@ -1,9 +1,6 @@
-.locations, .regions, .departments
+.locations-area, .regions-area, .departments-area
   padding: 180px 0
   margin: 0 auto
-  -webkit-box-shadow: inset -1px -5px 6px 0px rgba(0,0,0,0.28);
-  -moz-box-shadow: inset -1px -5px 6px 0px rgba(0,0,0,0.28);
-  box-shadow: inset -1px -5px 6px 0px rgba(0,0,0,0.28);
   a
     color: $xaxis-blue-color
     &:hover
@@ -11,17 +8,23 @@
   .location, .region, .department
     text-align: center
     color: $xaxis-blue-color
+    padding: 0 !important
     h2
       font-size: 30px
       color: $primary-color
       width: 100%
       margin: 0 auto
-      padding: 40px 0
+      padding: 35px 0
+      min-height: 140px
       &:hover
         color: #fff
         border-radius: 0
         background-color: $xaxis-blue-color
-      hr
-        width: 80%
-        border-top: 2px solid #eee
-        margin-top: 0
+    hr
+      width: 80%
+      border-top: 2px solid #eee
+      margin-top: 0 !important
+      margin-bottom: 20px !important
+
+.regions-container
+  margin: 0 5%
