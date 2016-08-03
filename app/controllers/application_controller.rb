@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_regions
 
   def set_regions
-    @regions = Region.order(:id).all
+    @all_regions = Region.order(:id).all
   end
 end

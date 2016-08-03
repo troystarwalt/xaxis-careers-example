@@ -130,3 +130,4 @@ regions = [
 regions.each do |region|
   Region.create(name: region[:name], slug: region[:slug])
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

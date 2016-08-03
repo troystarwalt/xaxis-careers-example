@@ -78,4 +78,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.middleware.insert 0, "Rack::WWWhisper"
+
+  config.action_mailer.default_url_options = { host: 'xaxis-careers-test.herokuapp.com' }
 end
