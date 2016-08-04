@@ -34,5 +34,11 @@ class JobviteResponseController < ApplicationController
     @title = "Xaxis Careers | Mobility"
   end
 
+  def force_pull_jobs
+    return redirect_to root_path unless current_admin_user
+    JobviteResponse.force_pull_jobs!
+    flash[:notice] = "It may take a minute for updates to take effect"
+    redirect_to admin_dashboard_path
+  end
 
 end
