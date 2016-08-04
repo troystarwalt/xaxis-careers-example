@@ -4,7 +4,7 @@ html
   min-height: 100%
 
 body
-  margin-bottom: 350px
+  margin-bottom: 300px
   background-color: $white
   margin-top: 65px
 
@@ -31,6 +31,21 @@ body
 
 .btn-social:not(:last-child)
   margin-right: 5%
+
+.body-section
+  padding-top: 180px
+  padding-bottom: 180px
+  &:nth-child(even)
+    background-color: $white
+  &:nth-child(odd)
+    background-color: $alternate-white
+.body-section-padding-small
+  padding-top: 90px
+  padding-bottom: 90px
+  &:nth-child(even)
+    background-color: $white
+  &:nth-child(odd)
+    background-color: $alternate-white
 
 footer
   background-color: $dark-grey
