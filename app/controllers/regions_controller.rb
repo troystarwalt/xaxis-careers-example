@@ -1,5 +1,6 @@
 class RegionsController < ApplicationController
   def index
+    @regions = Region.order(:id).all
   end
 
   # GET /regions/1
