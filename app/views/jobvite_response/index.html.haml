@@ -1,1 +1,11 @@
-= render partial: 'index'
+= render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
+.body-section
+  = render partial: 'regions/index', locals: {regions: @regions}
+.body-section
+  = render partial: 'departments/index', locals: {departments: @departments}
+.body-section#culture
+  = render partial: 'partials/photoblock'
+.body-section
+  = render partial: 'partials/mobility'
+.body-section
+  = render partial: 'partials/brands'

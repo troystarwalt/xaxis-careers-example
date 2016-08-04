@@ -2,11 +2,12 @@ class JobviteResponseController < ApplicationController
 
   def index
     @title = "Xaxis Careers"
-    @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
-      JobListing.all
-    end
+    # @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
+    #   JobListing.all
+    # end
+    @regions = Region.all
+    @departments = Department.all
   end
-
 
   def show
     @job = Rails.cache.fetch("job/#{params[:e_id]}", expires_in: 24.hour) do
@@ -20,18 +21,6 @@ class JobviteResponseController < ApplicationController
     @jobs = Rails.cache.fetch("jobs/departments/#{@job.department_param}",expires_in: 24.hour) do
       jobs = JobListing.in_department(@job.department_param)
     end
-  end
-
-  def culture
-    @title = "Xaxis Careers | Culture"
-  end
-
-  def benefits
-    @title = "Xaxis Careers | Benefits"
-  end
-
-  def mobility
-    @title = "Xaxis Careers | Mobility"
   end
 
   def force_pull_jobs
