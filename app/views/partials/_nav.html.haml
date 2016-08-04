@@ -38,3 +38,6 @@
         %li
           =link_to '#' do
             %span.glyphicon.glyphicon-search
+        -if current_admin_user
+          %li
+            =link_to 'Admin', admin_dashboard_path
