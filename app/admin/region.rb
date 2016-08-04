@@ -33,6 +33,13 @@ ActiveAdmin.register Region do
     column :hero_image do |model|
       image_tag model.hero_image.url(:thumb)
     end
+    column :locations do |model|
+      link_block = ""
+      model.locations.each do |location|
+        link_block << link_to(location.name, admin_location_path(location))<< "<br>"
+      end
+      link_block.html_safe
+    end
     actions
   end
 
@@ -46,6 +53,13 @@ ActiveAdmin.register Region do
       end
       row :hero_image_link do |model|
         model.hero_image.url
+      end
+      row :locations do |model|
+        link_block = ""
+        model.locations.each do |location|
+          link_block << link_to(location.name, admin_location_path(location))<< "<br>"
+        end
+        link_block.html_safe
       end
     end
   end

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get '/culture' => 'jobvite_response#culture', as: :culture
   get '/mobility' => 'jobvite_response#mobility', as: :mobility
   get '/careers/:e_id' => 'jobvite_response#show', as: :job
-
+  post '/get_all_careers' => 'jobvite_response#force_pull_jobs', as: :force_pull_jobs
   root to: 'jobvite_response#index'
 end
