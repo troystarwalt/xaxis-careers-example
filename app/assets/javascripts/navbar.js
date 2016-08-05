@@ -1,9 +1,9 @@
 $(document).ready(function (){
   setNavbarShadow();
-
   $(window).on('scroll',function(){
     setNavbarShadow();
   });
+
 });
 
 function setNavbarShadow(){

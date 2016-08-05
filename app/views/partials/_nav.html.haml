@@ -11,8 +11,11 @@
     #navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li
-          = link_to root_path(:anchor => 'culture') do
-            WORKING AT XAXIS
+          -if current_page?('/')
+            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll'
+          -else
+            = link_to root_path do
+              WORKING AT XAXIS
         %li.dropdown
           =link_to locations_path do
             LOCATIONS
