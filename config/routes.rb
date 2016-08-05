@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  match '/404' => 'errors#four_oh_four', via: :all, as: :four_oh_four
+  match '/500' => 'errors#five_hundred', via: :all, as: :five_hundred
   root to: 'jobvite_response#index'
 end
