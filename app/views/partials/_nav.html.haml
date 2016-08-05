@@ -34,16 +34,12 @@
               -Department.all.order(:name).each do |department|
                 %li.job-category.col-sm-4.text-center
                   =link_to department.name.upcase, department_path(department.slug)
-        %li
-          =link_to 'BENEFITS', benefits_path
-        %li
-          =link_to 'MOBILITY', mobility_path
-        %li
-          =link_to '###', id: 'search-button' do
-            %span.glyphicon.glyphicon-search
       %ul.nav.navbar-nav.navbar-right
         %li.hidden-sm
           =link_to "SEE ALL OPENINGS", "#"
+        %li.hidden-sm.hidden-xs
+          =link_to '###', id: 'search-button' do
+            %span.glyphicon.glyphicon-search
         -if current_admin_user
           %li
             =link_to 'Admin', admin_dashboard_path
