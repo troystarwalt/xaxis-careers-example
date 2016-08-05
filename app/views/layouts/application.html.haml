@@ -32,7 +32,7 @@
         %p.notice= notice
       -if alert
         %p.alert= alert
-      .container-fluid
+      .container-fluid.fade-me-in{style: "display: none"}
         = render partial: 'partials/searchfield'
         = yield
         = render partial: 'partials/footer'
