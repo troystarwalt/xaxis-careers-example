@@ -6,8 +6,8 @@
 git clone
 rake db:created
 rake db:migrate
-rails s
-bundle exec sidekiq (in new tab)
+redis-server
+foreman start (in new tab - first set of jobs pulled in 20s, then hourly)
 
 to pull jobs immediately
 rake careers:pull_jobs
