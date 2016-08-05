@@ -11,8 +11,11 @@ class JobviteResponseController < ApplicationController
 
   def show
     @job = Rails.cache.fetch("job/#{params[:e_id]}", expires_in: 24.hour) do
-      JobListing.find_by(e_id: params[:e_id])
+      job = JobListing.find_by(e_id: params[:e_id])
+      return redirect_to four_oh_four_path if job.nil?
+      job
     end
+    redirect_to four_oh_four_path if @job.nil?
     @title = "Xaxis Careers | " << @job.title
     @subtitle = @job.title
     if @job.private
