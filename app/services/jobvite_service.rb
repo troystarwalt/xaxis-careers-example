@@ -8,37 +8,18 @@ class JobviteService
   PRODUCTION_URL = "https://api.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
   STAGING_URL = "https://api-stg.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
 
-#gets last jobs return, listings if less than an hour ago, otherwise
-#pulls a new set from the api, and replaces the old set.
-  def self.get_all_jobs
-    if JobviteResponse.last && JobviteResponse.last.created_at > Time.now - 1.hour
-      return JobviteResponse.includes(:job_listings).last.job_listings
-    else
-      return force_pull_jobs
-    end
-  end
 
-#gets api response, parses, update table
-  def self.pull_jobs
+  def self.force_pull_jobs
     response = get_response(PRODUCTION_URL)
     parsed_response = parse_response(response)
-    update_jobs_table(parsed_response)
-  end
-
-#Forces updates to tables
-  def self.force_pull_jobs
-    jobvite_response = pull_jobs
-    unless jobvite_response.response['status']['code'] == 200
-      return JobviteResponse.includes(:job_listings).last.job_listings
+    if parsed_response['status']['code'] == 200 && parsed_response != JobviteResponse.last.response
+      jobvite_response = update_jobs_table(parsed_response)
+      listings = jobvite_response.response['requisitions']
+      create_jobs(listings)
+      update_job_counts
+      Rails.cache.clear
     end
-    listings = jobvite_response.response['requisitions']
-    create_jobs(listings)
-    if JobviteResponse.all.count > 1
-      JobviteResponse.first.destroy
-    end
-    Rails.cache.clear
-    update_job_counts
-    return jobvite_response.job_listings
+    JobviteResponse.last.job_listings
   end
 
   private
