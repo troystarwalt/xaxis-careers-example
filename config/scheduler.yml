@@ -1,0 +1,6 @@
+PullCareersJob:
+  every: ["1h", first_in: '1h']
+  class: PullCareersJob
+  args:
+  queue: default
+  description: "Pulls careers hourly"

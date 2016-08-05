@@ -1,5 +1,5 @@
-class PullCareersJob < ActiveJob::Base
-  @queue = :service
+class PullCareersJob
+  include Sidekiq::Worker
 
   def perform
     JobviteService.force_pull_jobs

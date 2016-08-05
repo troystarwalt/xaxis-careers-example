@@ -7,6 +7,10 @@ git clone
 rake db:created
 rake db:migrate
 rails s
+bundle exec sidekiq (in new tab)
+
+to pull jobs immediately
+rake careers:pull_jobs
 ```
 
 - Jobvite API Interaction defined in app/services
@@ -15,4 +19,4 @@ rails s
 
 - Departments/Locations/Regions all have basic CRUD operations, and can be generated initially through the seed file, or updated later.
 
-- Hero Images (the big guys, per location/region/department) can be edited on the fly through the admin interface. 
+- Hero Images (the big guys, per location/region/department) can be edited on the fly through the admin interface.
