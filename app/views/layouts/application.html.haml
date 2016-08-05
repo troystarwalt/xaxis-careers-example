@@ -33,6 +33,7 @@
       -if alert
         %p.alert= alert
       .container-fluid
+        = render partial: 'partials/searchfield'
         = yield
         = render partial: 'partials/footer'
         .bottom-stripe= image_tag asset_path('Stripe.png')

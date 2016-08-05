@@ -19,6 +19,43 @@ body
   margin: 0
   padding: 0
 
+/* SEARCH BAR ELEMENTS */
+
+.search-container
+  display: none
+  width: 100%
+  #searchForm
+    width: 80%
+    margin-left: 13%
+    position: fixed
+    z-index: 1000
+    label
+      float:right
+      margin-left: 5px
+    input.search-input
+      width: 90%
+      height: 6vh
+      background-color: rgba(199, 200, 202, .8)
+      border-top: 0
+      border-left: 0
+      border-right: 0
+      border-bottom: 2px solid white
+      padding-left: 10px
+      font-family: Gotham-Medium
+      font-size: 4em
+      float: left
+    input:-moz-placeholder
+      color: rgb(147,149,152)
+      font-family: Gotham-Medium
+    input::-webkit-input-placeholder
+      color: rgb(147,149,152)
+      font-family: Gotham-Medium
+    .search-input:focus
+      outline: none
+      background-color: rgba(199, 200, 202, 1)
+      transition: all 1s ease 0s
+      -webkit-transition: all .5s ease 0s
+
 /* FOOTER ELEMENTS */
 .btn-social
   border-radius: 100%
@@ -79,3 +116,19 @@ footer
   width: 100%
   height: 5px
   left: 0
+
+@media (max-width: 900px)
+  .search-container
+    #searchForm
+      input.search-input
+        font-size: 2.5em
+@media (max-width: 768px)
+  .search-container
+    #searchForm
+      input.search-input
+        font-size: 2em
+@media (max-width: 500px)
+  .search-container
+    #searchForm
+      input.search-input
+        font-size: 1.2em
