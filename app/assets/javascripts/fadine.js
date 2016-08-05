@@ -1,3 +1,5 @@
 $(document).ready(function(){
-  $('.fade-me-in').fadeIn(300);
+  $(window).on('load', function(){
+    $('.fade-me-in').fadeIn(200);
+  });
 });
