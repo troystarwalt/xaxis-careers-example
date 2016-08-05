@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -11,5 +13,10 @@ Rails.application.routes.draw do
   get '/mobility' => 'jobvite_response#mobility', as: :mobility
   get '/careers/:e_id' => 'jobvite_response#show', as: :job
   post '/get_all_careers' => 'jobvite_response#force_pull_jobs', as: :force_pull_jobs
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   root to: 'jobvite_response#index'
 end

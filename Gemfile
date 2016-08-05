@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15'
+gem 'puma'
 gem 'mini_racer'
 gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -16,14 +17,18 @@ gem 'carrierwave'
 gem "mini_magick"
 gem 'rack-wwwhisper', '~> 1.0'
 gem 'redis'
-gem 'resque', require: 'resque/server'
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'rails_12factor'
 gem 'friendly_id'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
+gem "devise-async"
 gem 'cancan' # or cancancan
 gem 'draper'
 gem 'pundit'
+gem 'sinatra', :require => false
+
 group :development, :test do
   gem 'byebug'
 end
@@ -31,4 +36,5 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'foreman'
 end

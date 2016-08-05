@@ -13,6 +13,6 @@ class JobviteResponse < ActiveRecord::Base
   end
 
   def self.force_pull_jobs!
-    PullCareersJob.perform_later
+    PullCareersJob.perform_async
   end
 end
