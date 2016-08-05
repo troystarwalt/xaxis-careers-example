@@ -6,13 +6,16 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      =link_to root_path, class: "nav navbar-brand" do
+      =link_to root_path, class: "nav-image navbar-left" do
         =image_tag asset_path('Xaxis_Logo_Pos_Vert.png')
     #navbar-collapse-1.collapse.navbar-collapse
-      %ul.nav.navbar-nav.navbar-right
+      %ul.nav.navbar-nav
         %li
-          = link_to root_path(:anchor => 'culture') do
-            CULTURE
+          -if current_page?('/')
+            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll'
+          -else
+            = link_to root_path do
+              WORKING AT XAXIS
         %li.dropdown
           =link_to locations_path do
             LOCATIONS
@@ -38,6 +41,9 @@
         %li
           =link_to '###', id: 'search-button' do
             %span.glyphicon.glyphicon-search
+      %ul.nav.navbar-nav.navbar-right
+        %li.hidden-sm
+          =link_to "SEE ALL OPENINGS", "#"
         -if current_admin_user
           %li
             =link_to 'Admin', admin_dashboard_path

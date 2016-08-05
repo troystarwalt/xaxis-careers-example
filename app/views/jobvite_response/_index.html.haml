@@ -1,6 +1,9 @@
-.container-fluid
-  = render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
+= render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
+.body-section
   = render partial: 'regions/index' unless params[:location] || params[:department]
+.body-section
   = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
+.body-section
   = render partial: 'partials/photoblock'
+.body-section
   = render partial: 'partials/brands'

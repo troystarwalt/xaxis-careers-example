@@ -1,8 +1,8 @@
 ActiveAdmin.setup do |config|
-  config.site_title = "Xaxis Careers"
+  #config.site_title = "Xaxis Careers"
   config.site_title_link = "/"
   # Note: Aim for an image that's 21px high so it fits in the header.
-  # config.site_title_image = "logo.png"
+  config.site_title_image = "Xaxis_Logo_Pos_Vert.png"
   config.authentication_method = :authenticate_admin_user!
 
   # == User Authorization
@@ -218,4 +218,11 @@ ActiveAdmin.setup do |config|
   # of those filters by default here.
   #
   # config.include_default_association_filters = true
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add :label => 'Developer' do |submenu|
+        submenu.add :label => 'sidekiq', :url =>  '/sidekiq'
+      end
+    end
+  end
 end

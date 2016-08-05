@@ -1,2 +1,2 @@
-web: bundle exec rails server -p $PORT
-worker: QUEUE=* bundle exec rake environment resque:work
+web: bundle exec puma -C config/puma.rb
+worker: bundle exec sidekiq -c 2  

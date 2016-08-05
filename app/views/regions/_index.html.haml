@@ -1,7 +1,7 @@
 .regions-container
   .regions-area
     .row
-      -@all_regions.all.each do |region|
+      -@regions.all.each do |region|
         .text-center.region.col-sm-6.col-md-3
           =link_to region_path(region.slug) do
             -if region.slug == 'europe-middle-east'
@@ -9,5 +9,6 @@
             -else
               %h2=region.name.upcase.gsub(' ', '<br>').html_safe
             %hr
+          .job-openings-count
             = region.job_count
             Openings
