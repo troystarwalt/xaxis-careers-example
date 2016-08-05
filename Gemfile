@@ -1,14 +1,12 @@
 source 'https://rubygems.org'
-
-gem 'rails', '4.2.5'
-gem 'pg', '~> 0.15'
+ruby '2.3.1'
+gem 'rails', '4.2.6'
+gem 'pg'
 gem 'puma'
 gem 'mini_racer'
-gem 'sassc-rails'
+gem 'sassc-rails', github: 'sass/sassc-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml'
 gem 'haml-rails'
 gem "html_truncator"
@@ -24,7 +22,7 @@ gem 'friendly_id'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem "devise-async"
-gem 'cancan' # or cancancan
+gem 'cancan'
 gem 'draper'
 gem 'pundit'
 gem 'sinatra', :require => false
