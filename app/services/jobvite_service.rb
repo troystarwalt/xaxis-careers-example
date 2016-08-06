@@ -9,18 +9,26 @@ class JobviteService
   STAGING_URL = "https://api-stg.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
 
 
+  #gets response, parses response.  if it's different, update everything, otherwise don't
   def self.force_pull_jobs
     response = get_response(PRODUCTION_URL)
     parsed_response = parse_response(response)
-    if parsed_response['status']['code'] == 200 && parsed_response != JobviteResponse.last.response
-      jobvite_response = update_jobs_table(parsed_response)
-      listings = jobvite_response.response['requisitions']
-      create_jobs(listings)
-      update_job_counts
-      Rails.cache.clear
+    if parsed_response['status']['code'] == 200
+      if JobviteResponse.last.nil? || parsed_response != JobviteResponse.last.response
+        jobvite_response = update_jobs_table(parsed_response)
+        listings = jobvite_response.response['requisitions']
+        create_jobs(listings)
+        if JobviteResponse.all.count > 1
+          JobviteResponse.first.destroy
+        end
+        update_job_counts
+        Rails.cache.clear
+      end
     end
     JobviteResponse.last.job_listings
   end
+
+
 
   private
   #gets api response
@@ -84,14 +92,8 @@ class JobviteService
   end
 
   def self.update_job_counts
-    Department.all.each do |department|
-      department.update(job_count: JobListing.where(department: department.name).count)
-    end
-    Location.all.each do |location|
-      location.update(job_count: JobListing.where(location_city: location.name).count)
-    end
-    Region.all.each do |region|
-      region.update(job_count: JobListing.where(region: region.name).count)
+    [Department,Location,Region].each do |klass|
+      klass.update_job_counts
     end
   end
 

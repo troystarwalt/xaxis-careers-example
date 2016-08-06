@@ -1,14 +1,12 @@
 -model = @location || @department || @region
 -if model
-  .jumbotron
-    = image_tag model.hero_image
+  .jumbotron{style: "background-image: url('#{asset_path(model.hero_image)}')"}
     = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
     .overlay-text
       %h2.text-center
         =model.class.find_by_slug(model.slug).name
 -else
-  .jumbotron
-    = image_tag "http://placehold.it/1600x900"
+  .jumbotron{style: "background-image: url('//placehold.it/1600x900')"}
     = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
     -if action_name == 'show'
       .overlay-text
