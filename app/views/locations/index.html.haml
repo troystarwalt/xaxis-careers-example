@@ -2,7 +2,7 @@
   .container
     .locations-area
       .row
-        -@locations.all.each do |location|
+        -@locations.all.order(:name).each do |location|
           .text-center.location.col-sm-4
             =link_to location_path(location.slug) do
               %h2=location.name.upcase.html_safe

@@ -1,12 +1,12 @@
 ActiveAdmin.register_page "Dashboard" do
-  
+
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
   #
   content title: "Stats" do
     columns do
       column do
         panel "Careers last updated at" do
-          h2 JobviteResponse.last.get_created_at
+          h2 JobviteResponse.last.get_updated_at
           a button("Force Update"), href: force_pull_jobs_url,
                           :'data-method' => :post,
                           :'data-confirm' => JobviteResponse.force_update_warning
