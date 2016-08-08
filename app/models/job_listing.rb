@@ -12,7 +12,7 @@ class JobListing < ActiveRecord::Base
     columns = %w{title region location}
     @jobs = JobListing.where(
     columns
-      .map {|c| "#{c} like :search"}
+      .map {|c| "lower(#{c}) like :search"}
       .join(' OR '),
       search: key
     )

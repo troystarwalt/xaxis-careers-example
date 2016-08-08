@@ -10,7 +10,7 @@ class DepartmentsController < ApplicationController
     @jobs = Rails.cache.fetch("jobs/departments/#{@department.slug}", expires_in: 1.hour) do
       JobListing.in_department(@department.slug)
     end
-    @title = "Xaxis Careers | #{department.name}"
+    @title = "Xaxis Careers | #{@department.name}"
   end
 
   private
