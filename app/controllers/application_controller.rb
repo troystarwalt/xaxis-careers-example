@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_nav_items
+    @regions = Region.all.order(:id)
+    @departments = Department.all.order(:name)
+    @locations = Location.all.order(:name)
+  end
+
 end

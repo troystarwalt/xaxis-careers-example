@@ -1,25 +1,16 @@
 class DepartmentsController < ApplicationController
-
+  before_filter :set_nav_items
   def index
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
+    @title = "Xaxis Careers | Departments"
   end
 
   def show
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
     @department = Department.friendly.find(params[:id])
     @subtitle = @department.name
     @jobs = Rails.cache.fetch("jobs/departments/#{@department.slug}", expires_in: 1.hour) do
       JobListing.in_department(@department.slug)
     end
-  end
-
-  # GET /departments/new
-  def new
-    @department = Department.new
+    @title = "Xaxis Careers | #{department.name}"
   end
 
   private

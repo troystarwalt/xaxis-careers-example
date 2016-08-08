@@ -1,22 +1,16 @@
 class LocationsController < ApplicationController
-
+  before_filter :set_nav_items
   def index
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
+    @title = "Xaxis Careers | Locations"
   end
 
-  # GET /locations/1
-  # GET /locations/1.json
   def show
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
     @location = Location.friendly.find(params[:id])
     @jobs = Rails.cache.fetch("jobs/locations/#{@location.slug}", expires_in: 1.hour) do
       JobListing.in_location(@location.slug)
     end
     subtitle = @location.name
+    @title = "Xaxis Careers | #{@location.name}"
   end
 
   private

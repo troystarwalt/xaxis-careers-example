@@ -1,16 +1,10 @@
 class JobviteResponseController < ApplicationController
-
+  before_filter :set_nav_items
   def index
     @title = "Xaxis Careers"
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
   end
 
   def show
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
     @job = Rails.cache.fetch("job/#{params[:e_id]}", expires_in: 24.hour) do
       job = JobListing.find_by(e_id: params[:e_id])
       return redirect_to four_oh_four_path if job.nil?
@@ -29,9 +23,6 @@ class JobviteResponseController < ApplicationController
 
   def all_index
     @title = "Xaxis Careers | All Listings"
-    @regions = Region.all.order(:id)
-    @departments = Department.all.order(:name)
-    @locations = Location.all.order(:name)
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
       JobListing.all
     end

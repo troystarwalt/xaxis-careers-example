@@ -1,13 +1,6 @@
-.container
-  - if @jobs.present?
-    - @jobs.all.each do |job|
-      %p
-        = job.region
-        |
-        = job.title
-        |
-        = link_to "Apply", job.apply_link
-  - else
-    %p
-      Sorry, there are no jobs containing the terms
-      = params[:search]
+- if @jobs.present?
+  = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
+- else
+  %p
+    Sorry, there are no jobs containing the terms
+    = params[:search]
