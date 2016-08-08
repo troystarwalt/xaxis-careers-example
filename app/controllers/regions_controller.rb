@@ -1,12 +1,14 @@
 class RegionsController < ApplicationController
   def index
-    @regions = Region.order(:id).all
+    @regions = Region.all.order(:id)
+    @departments = Department.all.order(:name)
+    @locations = Location.all.order(:name)
   end
 
   # GET /regions/1
   # GET /regions/1.json
   def show
-    @regions = Region.order(:id).all
+    @regions = Region.all.order(:id)
     @region = Region.friendly.find(params[:id])
     @jobs = Rails.cache.fetch("jobs/regions/#{@region.slug}", expires_in: 1.hour) do
       JobListing.in_region(@region.slug)
