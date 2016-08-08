@@ -1,8 +1,8 @@
-.body-section-padding-small
+.section
   .container
     .departments-area
       .row
-        -departments.all.each do |department|
+        -departments.each do |department|
           .text-center.department.col-sm-4
             =link_to department_path(department.slug) do
               %h2=department.name.upcase

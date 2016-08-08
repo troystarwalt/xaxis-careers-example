@@ -20,9 +20,7 @@
     %meta{:content => "#ffffff", :name => "msapplication-TileColor"}/
     %meta{:content => "/favicons/ms-icon-144x144.png", :name => "msapplication-TileImage"}/
     %meta{:content => "#ffffff", :name => "theme-color"}/
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    %script{src: "//use.fontawesome.com/fafebbc844.js"}
+    = stylesheet_link_tag    'application', media: 'all'
     = csrf_meta_tags
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
   %body{class: "#{controller_name} #{action_name}"}
@@ -32,8 +30,10 @@
         %p.notice= notice
       -if alert
         %p.alert= alert
-      .container-fluid.fade-me-in{style: "display: none"}
+      .container-fluid.fade-me-in
         = render partial: 'partials/searchfield'
         = yield
         = render partial: 'partials/footer'
         .bottom-stripe= image_tag asset_path('Stripe.png')
+      = javascript_include_tag 'application'
+      %script{src: "//use.fontawesome.com/de41bf75b8.js"}

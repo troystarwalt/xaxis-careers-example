@@ -23,6 +23,8 @@ class JobviteService
         end
         update_job_counts
         Rails.cache.clear
+      else
+        JobviteResponse.last.update(updated_at: Time.now)
       end
     end
     JobviteResponse.last.job_listings
