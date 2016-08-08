@@ -7,7 +7,15 @@ class JobListing < ActiveRecord::Base
   scope :in_location, -> (location){where(location_city_param: location)}
 
   def self.search(search)
-    where("title LIKE ? OR region LIKE ?", "%#{search}%", "%#{search}%")
+    key = "%#{search}%"
+    # Add additional columns below to search those.
+    columns = %w{title region location}
+    @jobs = JobListing.where(
+    columns
+      .map {|c| "#{c} like :search"}
+      .join(' OR '),
+      search: key
+    )
   end
 
   private
