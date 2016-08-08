@@ -1,12 +1,15 @@
 class DepartmentsController < ApplicationController
 
   def index
-    @regions = Region.all
-    @departments = Department.all
+    @regions = Region.all.order(:id)
+    @departments = Department.all.order(:name)
+    @locations = Location.all.order(:name)
   end
 
   def show
-    @regions = Region.all
+    @regions = Region.all.order(:id)
+    @departments = Department.all.order(:name)
+    @locations = Location.all.order(:name)
     @department = Department.friendly.find(params[:id])
     @subtitle = @department.name
     @jobs = Rails.cache.fetch("jobs/departments/#{@department.slug}", expires_in: 1.hour) do

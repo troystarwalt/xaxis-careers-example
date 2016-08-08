@@ -344,6 +344,7 @@ DEPENDENCIES
   pg
   puma
   pundit
+  rack-cache
   rack-wwwhisper (~> 1.0)
   rails (= 4.2.6)
   rails_12factor
