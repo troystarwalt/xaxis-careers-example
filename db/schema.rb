@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804130443) do
+ActiveRecord::Schema.define(version: 20160807133805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160804130443) do
     t.datetime "updated_at", null: false
     t.string   "hero_image"
     t.integer  "job_count"
+    t.integer  "position"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160804130443) do
     t.string   "hero_image"
     t.integer  "job_count"
     t.integer  "region_id"
+    t.integer  "position"
   end
 
   add_index "locations", ["region_id"], name: "index_locations_on_region_id", using: :btree
@@ -139,6 +141,7 @@ ActiveRecord::Schema.define(version: 20160804130443) do
     t.datetime "updated_at", null: false
     t.string   "hero_image"
     t.integer  "job_count"
+    t.integer  "position"
   end
 
   add_foreign_key "job_listings", "jobvite_responses"

@@ -1,0 +1,13 @@
+.container
+  - if @jobs.present?
+    - @jobs.all.each do |job|
+      %p
+        = job.region
+        |
+        = job.title
+        |
+        = link_to "Apply", job.apply_link
+  - else
+    %p
+      Sorry, there are no jobs containing the terms
+      = params[:search]

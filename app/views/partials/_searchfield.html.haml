@@ -1,4 +1,4 @@
-.search-container
-  = form_tag '/####', id: 'searchForm', method: 'get' do
+#search-container
+  = form_tag searchresults_path, id: 'searchForm', method: 'get' do
     = label_tag "nil", '', class: "fa fa-4x fa-search hidden-xs"
-    = text_field_tag 'search-box', '', class: 'search-input', placeholder: "Search Available Jobs", type: "text", name: "_searchField", autofocus: true
+    = text_field_tag :search, params[:search], class: 'search-input', placeholder: "Search Available Jobs", type: "text", name: "search", autofocus: true

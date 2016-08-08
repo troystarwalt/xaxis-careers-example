@@ -5,6 +5,19 @@ class JobListing < ActiveRecord::Base
   scope :in_region, -> (region){where(region_param: region.parameterize)}
   scope :in_department, -> (department){where(department_param: department)}
   scope :in_location, -> (location){where(location_city_param: location)}
+
+  def self.search(search)
+    key = "%#{search}%"
+    # Add additional columns below to search those.
+    columns = %w{title region location}
+    @jobs = JobListing.where(
+    columns
+      .map {|c| "#{c} like :search"}
+      .join(' OR '),
+      search: key
+    )
+  end
+
   private
   def clean_data
     # trim whitespace from beginning and end of string attributes
