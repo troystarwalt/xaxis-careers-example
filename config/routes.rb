@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/mobility' => 'jobvite_response#mobility', as: :mobility
   get '/careers/:e_id' => 'jobvite_response#show', as: :job
   post '/get_all_careers' => 'jobvite_response#force_pull_jobs', as: :force_pull_jobs
+  get '/searchresults' => 'searches#index'
 
   authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
