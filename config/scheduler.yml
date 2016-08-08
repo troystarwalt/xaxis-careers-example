@@ -1,5 +1,5 @@
 PullCareersJob:
-  every: ["1h", first_in: '1h']
+  every: ["1h", first_in: '10s']
   class: PullCareersJob
   args:
   queue: default

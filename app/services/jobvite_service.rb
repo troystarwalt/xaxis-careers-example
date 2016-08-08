@@ -8,38 +8,29 @@ class JobviteService
   PRODUCTION_URL = "https://api.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
   STAGING_URL = "https://api-stg.jobvite.com/api/v2/job?api=#{API_KEY}&sc=#{SECRET_KEY}"
 
-#gets last jobs return, listings if less than an hour ago, otherwise
-#pulls a new set from the api, and replaces the old set.
-  def self.get_all_jobs
-    if JobviteResponse.last && JobviteResponse.last.created_at > Time.now - 1.hour
-      return JobviteResponse.includes(:job_listings).last.job_listings
-    else
-      return force_pull_jobs
-    end
-  end
 
-#gets api response, parses, update table
-  def self.pull_jobs
+  #gets response, parses response.  if it's different, update everything, otherwise don't
+  def self.force_pull_jobs
     response = get_response(PRODUCTION_URL)
     parsed_response = parse_response(response)
-    update_jobs_table(parsed_response)
+    if parsed_response['status']['code'] == 200
+      if JobviteResponse.last.nil? || parsed_response != JobviteResponse.last.response
+        jobvite_response = update_jobs_table(parsed_response)
+        listings = jobvite_response.response['requisitions']
+        create_jobs(listings)
+        if JobviteResponse.all.count > 1
+          JobviteResponse.first.destroy
+        end
+        update_job_counts
+        Rails.cache.clear
+      else
+        JobviteResponse.last.update(updated_at: Time.now)
+      end
+    end
+    JobviteResponse.last.job_listings
   end
 
-#Forces updates to tables
-  def self.force_pull_jobs
-    jobvite_response = pull_jobs
-    unless jobvite_response.response['status']['code'] == 200
-      return JobviteResponse.includes(:job_listings).last.job_listings
-    end
-    listings = jobvite_response.response['requisitions']
-    create_jobs(listings)
-    if JobviteResponse.all.count > 1
-      JobviteResponse.first.destroy
-    end
-    Rails.cache.clear
-    update_job_counts
-    return jobvite_response.job_listings
-  end
+
 
   private
   #gets api response
@@ -103,14 +94,8 @@ class JobviteService
   end
 
   def self.update_job_counts
-    Department.all.each do |department|
-      department.update(job_count: JobListing.where(department: department.name).count)
-    end
-    Location.all.each do |location|
-      location.update(job_count: JobListing.where(location_city: location.name).count)
-    end
-    Region.all.each do |region|
-      region.update(job_count: JobListing.where(region: region.name).count)
+    [Department,Location,Region].each do |klass|
+      klass.update_job_counts
     end
   end
 

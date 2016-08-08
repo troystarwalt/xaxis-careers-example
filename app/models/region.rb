@@ -3,4 +3,10 @@ class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   has_many :locations
+
+  def self.update_job_counts
+    all.each do |region|
+      region.update(job_count: JobListing.where(region: region.name).count)
+    end
+  end
 end

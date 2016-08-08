@@ -1,3 +1,93 @@
-.container
+.container.mobility.timeline
   %h1 Mobility
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  %section.cd-horizontal-timeline
+    .timeline
+      .events-wrapper
+        .events
+          %ol
+            %li
+              %a.selected{"data-date" => "16/01/2014", :href => "#0"} 16 Jan
+            %li
+              %a{"data-date" => "28/02/2014", :href => "#0"} 28 Feb
+            %li
+              %a{"data-date" => "20/04/2014", :href => "#0"} 20 Mar
+            %li
+              %a{"data-date" => "20/05/2014", :href => "#0"} 20 May
+            %li
+              %a{"data-date" => "09/07/2014", :href => "#0"} 09 Jul
+            %li
+              %a{"data-date" => "30/08/2014", :href => "#0"} 30 Aug
+            %li
+              %a{"data-date" => "15/09/2014", :href => "#0"} 15 Sep
+            %li
+              %a{"data-date" => "01/11/2014", :href => "#0"} 01 Nov
+            %li
+              %a{"data-date" => "10/12/2014", :href => "#0"} 10 Dec
+            %li
+              %a{"data-date" => "19/01/2015", :href => "#0"} 29 Jan
+            %li
+              %a{"data-date" => "03/03/2015", :href => "#0"} 3 Mar
+          %span.filling-line{"aria-hidden" => "true"}
+      %ul.cd-timeline-navigation
+        %li
+          %a.prev.inactive{:href => "#0"} Prev
+        %li
+          %a.next{:href => "#0"} Next
+    .events-content
+      %ol
+        %li.selected{"data-date" => "16/01/2014"}
+          %h2 Horizontal Timeline
+          %em January 16th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "28/02/2014"}
+          %h2 Event title here
+          %em February 28th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "20/04/2014"}
+          %h2 Event title here
+          %em March 20th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "20/05/2014"}
+          %h2 Event title here
+          %em May 20th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "09/07/2014"}
+          %h2 Event title here
+          %em July 9th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "30/08/2014"}
+          %h2 Event title here
+          %em August 30th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "15/09/2014"}
+          %h2 Event title here
+          %em September 15th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "01/11/2014"}
+          %h2 Event title here
+          %em November 1st, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "10/12/2014"}
+          %h2 Event title here
+          %em December 10th, 2014
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "19/01/2015"}
+          %h2 Event title here
+          %em January 19th, 2015
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+        %li{"data-date" => "03/03/2015"}
+          %h2 Event title here
+          %em March 3rd, 2015
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+    / .events-content

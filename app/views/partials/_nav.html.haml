@@ -12,31 +12,31 @@
       %ul.nav.navbar-nav
         %li
           -if current_page?('/')
-            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll'
+            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll current-page'
           -else
             = link_to root_path do
               WORKING AT XAXIS
         %li.dropdown
-          =link_to locations_path do
+          =link_to locations_path, class: (controller_name == 'locations' ? 'current-page' : '') do
             LOCATIONS
             %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
-              -Location.all.order(:name).each do |location|
+              -@locations.each do |location|
                 %li.job-category.col-sm-4.text-center.hidden-xs
                   =link_to location.name.upcase, location_path(location.slug)
         %li.dropdown
-          =link_to departments_path  do
+          =link_to departments_path, class: (controller_name == 'departments' ? 'current-page' : '')  do
             DEPARTMENTS
             %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
-              -Department.all.order(:name).each do |department|
+              -@departments.each do |department|
                 %li.job-category.col-sm-4.text-center
                   =link_to department.name.upcase, department_path(department.slug)
       %ul.nav.navbar-nav.navbar-right
         %li.hidden-sm
-          =link_to "SEE ALL OPENINGS", "#"
+          =link_to "SEE ALL OPENINGS", jobs_path
         %li.hidden-sm.hidden-xs
           =link_to '###', id: 'search-button' do
             %span.glyphicon.glyphicon-search
