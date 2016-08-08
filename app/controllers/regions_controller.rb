@@ -11,7 +11,7 @@ class RegionsController < ApplicationController
     @jobs = Rails.cache.fetch("jobs/regions/#{@region.slug}", expires_in: 1.hour) do
       JobListing.in_region(@region.slug)
     end
-    @title = "Xaxis Careers | #{region.name}"
+    @title = "Xaxis Careers | #{@region.name}"
   end
 
   private

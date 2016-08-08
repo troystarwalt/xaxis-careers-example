@@ -3,9 +3,13 @@ class SearchesController < ApplicationController
   def index
     @title = "Xaxis Careers | " + params[:search]
     if params[:search]
-      @jobs = JobListing.search(params[:search]).order("title DESC")
+      @jobs = Rails.cache.fetch("jobs/search/#{params[:search]}", expires_in: 24.hours) do
+        JobListing.search(params[:search]).order("title DESC")
+      end
     else
-      @jobs = JobListing.all.order('title DESC')
+      @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
+        JobListing.all
+      end
     end
   end
 end
