@@ -30,6 +30,9 @@ ActiveAdmin.register Region do
     column :id
     column :name
     column :slug
+    column :has_hero_image do |model|
+      model.hero_image? ? status_tag( "yes", :ok ) : status_tag( "no" )
+    end
     column :hero_image do |model|
       image_tag model.hero_image.url(:thumb)
     end
@@ -48,6 +51,9 @@ ActiveAdmin.register Region do
       row :id
       row :name
       row :slug
+      row :has_hero_image do |model|
+        model.hero_image? ? status_tag( "yes", :ok ) : status_tag( "no" )
+      end
       row :hero_image do |model|
         image_tag model.hero_image.url(:small)
       end
