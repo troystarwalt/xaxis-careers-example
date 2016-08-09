@@ -4,7 +4,7 @@
 
 ```
 git clone
-rake db:created
+rake db:create
 rake db:migrate
 redis-server
 foreman start (in new tab - first set of jobs pulled in 20s, then hourly)
