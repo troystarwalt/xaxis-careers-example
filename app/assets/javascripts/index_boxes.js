@@ -1,6 +1,7 @@
 $('.locations-area, .regions-area, .departments-area').ready(function(){
-  setContainerHeights($('.location h2, .region h2, .department h2'));
-
+  $(window).on('load', function(){
+    setContainerHeights($('.location h2, .region h2, .department h2'));
+  });
   $(window).on('resize', function(){
     setContainerHeights($('.location h2, .region h2, .department h2'));
   });
