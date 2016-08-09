@@ -12,12 +12,12 @@
       %ul.nav.navbar-nav
         %li
           -if current_page?('/')
-            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll current-page'
+            =link_to 'WORKING AT XAXIS', '#culture', class: 'js-smooth-scroll'
           -else
             = link_to root_path do
               WORKING AT XAXIS
         %li.dropdown
-          =link_to locations_path, class: (controller_name == 'locations' ? 'current-page' : '') do
+          =link_to locations_path do
             LOCATIONS
             %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
@@ -32,7 +32,7 @@
                       =link_to location_path(location.slug), class: 'col-sm-12 text-center' do
                         %li.city-name= location.name.upcase
         %li.dropdown
-          =link_to departments_path, class: (controller_name == 'departments' ? 'current-page' : '')  do
+          =link_to departments_path  do
             DEPARTMENTS
             %span.caret.hidden-sm.hidden-xs
           %ul.dropdown-menu.hidden-sm.hidden-xs
