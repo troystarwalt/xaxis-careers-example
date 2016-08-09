@@ -23,8 +23,9 @@
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -@locations.each do |location|
-                %li.job-category.col-sm-4.text-center.hidden-xs
-                  =link_to location.name.upcase, location_path(location.slug)
+                =link_to location_path(location.slug), class: 'job-category col-sm-4 text-center hidden-xs' do
+                  %li
+                    =location.name.upcase
         %li.dropdown
           =link_to departments_path, class: (controller_name == 'departments' ? 'current-page' : '')  do
             DEPARTMENTS
@@ -32,8 +33,9 @@
           %ul.dropdown-menu.hidden-sm.hidden-xs
             .container
               -@departments.each do |department|
-                %li.job-category.col-sm-4.text-center
-                  =link_to department.name.upcase, department_path(department.slug)
+                =link_to department_path(department.slug), class: 'job-category col-sm-4 text-center hidden-xs' do
+                  %li
+                    =department.name.upcase
       %ul.nav.navbar-nav.navbar-right
         %li.hidden-sm
           =link_to "SEE ALL OPENINGS", jobs_path
