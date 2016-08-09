@@ -95,23 +95,27 @@ footer
   height: 300px
   display: flex
   align-items: center
-  .base-footer
-    margin: 0 auto
+  justify-content: center
+  flex-direction: column
+  p
+    display: flex
+    justify-content: center
     width: 80%
-    p
-    .footer-link-container
-      display: flex
-      justify-content: space-around
-      border-top: 1px solid $primary-color
-      padding-top: 20px
-      margin-top: 60px
-      margin-bottom: 60px
-      a
-        &.footer-link:link, &.footer-link:visited
-          color: $primary-color
-        &.footer-link:hover
-          text-decoration: none
-          color: $xaxis-blue-color
+  .footer-link-container
+    display: flex
+    justify-content: space-around
+    width: 70%
+    align-items: center
+    border-top: 1px solid $primary-color
+    padding-top: 20px
+    margin-top: 60px
+    margin-bottom: 60px
+    a
+      &.footer-link:link, &.footer-link:visited
+        color: $primary-color
+      &.footer-link:hover
+        text-decoration: none
+        color: $xaxis-blue-color
 
 .bottom-stripe img
   position: absolute
@@ -121,7 +125,7 @@ footer
   left: 0
 .fade-me-in
   display: none
-  
+
 @media (max-width: 900px)
   .search-container
     #searchForm
@@ -132,8 +136,28 @@ footer
     #searchForm
       input.search-input
         font-size: 2em
+  footer
+    p
+    .footer-link-container
+      margin-bottom: 5px
+      width: 80%
+@media (max-width: 600px)
+  footer
+    p
+    .footer-link-container
+      margin-bottom: 5px
+      width: 90%
+      margin-top: 30px
 @media (max-width: 500px)
   .search-container
     #searchForm
       input.search-input
         font-size: 1.2em
+  footer
+    p
+      width: 100%
+    .footer-link-container
+      flex-direction: column
+      margin-bottom: 5px
+      width: 90%
+      margin-top: 30px
