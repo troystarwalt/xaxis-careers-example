@@ -5,25 +5,24 @@
         %p.intro-paragraph
           To be a part of the digital frontier, join the Xaxis team. With 53 offices globally, we're always looking for genius. No matter if your specific genius lies in tech, HR or creative, apply below - and watch your digital career unfold.
       -if jobs.count > 0
-        %dl.dl-horizontal
-          -if jobs.pluck(:department).length > 1 && !jobs.pluck(:department).uniq.nil?
-            -department_array = jobs.pluck(:department).uniq.sort
-          -else
-            -department_array = jobs.pluck(:department)
-          -department_array.each do |department|
-            %h2.text-center= department unless controller_name == 'department'
-            -jobs.where(department: department).each do |job|
-              -if action_name == 'show' && job == @job
-                -next
-              -else
+        -if jobs.pluck(:department).length > 1 && !jobs.pluck(:department).uniq.nil?
+          -department_array = jobs.pluck(:department).uniq.sort
+        -else
+          -department_array = jobs.pluck(:department)
+        -department_array.each do |department|
+          %h2.text-center= department unless controller_name == 'department'
+          -jobs.where(department: department).pluck(:location_city).uniq.each do |location|
+            %h4.location-title.hidden-sm.hidden-md.hidden-lg= location
+            -jobs.where(department: department, location_city: location).each do |job|
+              %dl.dl-horizontal
                 %dt.job-title
                   =link_to job_path(job.e_id) do
                     =job.title
                     -if job.subsidiary_name != "Xaxis"
                       |
                       =job.subsidiary_name
-                %dd.text-right
-                  ="#{job.location_city}, #{job.location_country}"
+                %dd.text-right.hidden-xs  
+                  = "#{job.location_city}, #{job.location_country}"
       -else
         %p
           -criteria = controller_name
