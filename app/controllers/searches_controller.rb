@@ -1,15 +1,15 @@
 class SearchesController < ApplicationController
     before_filter :set_nav_items
   def index
-    params[:search].strip!.downcase!
+    unless params[:search].present?
+      flash[:notice] = "Invalid Search"
+      redirect_to jobs_path
+    end
+    params[:search] = params[:search].strip.downcase
     @title = "Xaxis Careers | " + params[:search].capitalize
-    if params[:search]
+    if params[:search].present?
       @jobs = Rails.cache.fetch("jobs/search/#{params[:search]}", expires_in: 24.hours) do
         JobListing.search(params[:search]).order("title DESC")
-      end
-    else
-      @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
-        JobListing.all
       end
     end
   end
