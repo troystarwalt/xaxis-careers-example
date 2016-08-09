@@ -9,4 +9,8 @@ class Region < ActiveRecord::Base
       region.update(job_count: JobListing.where(region: region.name).count)
     end
   end
+
+  def main_cities
+    self.locations.where(hub_city: true)
+  end
 end

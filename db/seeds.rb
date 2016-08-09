@@ -96,48 +96,56 @@ locations = [
   {
     name: 'New York',
     slug: 'new-york',
-    region_slug: 'north-america'
+    region_slug: 'north-america',
+    hub_city: true
   },
   {
     name: 'Chicago',
     slug: 'chicago',
-    region_slug: 'north-america'
+    region_slug: 'north-america',
+    hub_city: true
   },
   {
     name: 'Toronto',
     slug: 'toronto',
-    region_slug: 'north-america'
+    region_slug: 'north-america',
+    hub_city: false
   },
   {
     name: 'London',
     slug: 'london',
-    region_slug: 'europe-middle-east'
+    region_slug: 'europe-middle-east',
+    hub_city: true
   },
   {
     name: 'Singapore',
     slug: 'singapore',
-    region_slug: 'asia-pacific'
+    region_slug: 'asia-pacific',
+    hub_city: true
   },
   {
     name: 'Bogota',
     slug: 'bogota',
-    region_slug: 'latin-america'
+    region_slug: 'latin-america',
+    hub_city: true
   },
   {
     name: 'Anzures',
     slug: 'anzures',
-    region_slug: 'latin-america'
+    region_slug: 'latin-america',
+    hub_city: false
   },
   {
     name: 'Karlsruhe',
     slug: 'karlsruhe',
-    region_slug: 'europe-middle-east'
+    region_slug: 'europe-middle-east',
+    hub_city: false
   }
 ]
 
 locations.each do |location|
   region = Region.find_by(slug: location[:region_slug])
-  region.locations.create(name: location[:name])
+  region.locations.create(name: location[:name], hub_city: location[:hub_city])
 end
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

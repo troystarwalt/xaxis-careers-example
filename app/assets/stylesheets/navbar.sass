@@ -57,16 +57,28 @@
         -webkit-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
         -moz-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
         box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
-        a
-          text-decoration: none
-          li
-            font-family: 'Gotham-Medium'
-            padding: 10px 0
-            color: $primary-color
+        .dropdown-container
+          a
             text-decoration: none
-          &:hover
-            li
-              color: $xaxis-blue-color
+            .main-listing-name
+              font-family: 'Gotham-Medium'
+              padding: 0
+              padding-top: 10px
+              color: $primary-color
+              text-decoration: none
+              min-height: 60px
+            &:hover
+              .main-listing-name
+                color: $xaxis-blue-color
+          .city-container
+            padding-left: 0
+            list-style: none
+            a
+              padding: 5px 18px
+              &:hover
+                li
+                  color: $xaxis-blue-color
+
   @media (max-width: $size-sm)
     .navbar-collapse.collapse.in, .navbar-collapse.collapsing
       background-color: #D8D8D8
