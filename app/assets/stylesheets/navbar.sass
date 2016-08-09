@@ -57,14 +57,15 @@
         -webkit-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
         -moz-box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
         box-shadow: 0px 5px 20px -5px rgba(192,192,192,1) !important
-        li
-          padding: 20px 0
-          a
+        a
+          text-decoration: none
+          li
             font-family: 'Gotham-Medium'
-            padding: 0
+            padding: 10px 0
             color: $primary-color
             text-decoration: none
-            &:hover
+          &:hover
+            li
               color: $xaxis-blue-color
   @media (max-width: $size-sm)
     .navbar-collapse.collapse.in, .navbar-collapse.collapsing
