@@ -34,8 +34,15 @@ ActiveAdmin.register Location do
     column :name
     column :slug
     column :hub_city
+    column :has_hero_image do |model|
+      model.hero_image? ? status_tag( "yes", :ok ) : status_tag( "no" )
+    end
     column :hero_image do |model|
-      image_tag model.hero_image.url(:thumb)
+      if model.hero_image?
+        image_tag model.hero_image.url(:thumb)
+      else
+        image_tag model.region.hero_image.url(:thumb)
+      end
     end
     column :region
     actions
@@ -48,11 +55,22 @@ ActiveAdmin.register Location do
       row :region
       row :slug
       row :hub_city
+      row :has_hero_image do |model|
+        model.hero_image? ? status_tag( "yes", :ok ) : status_tag( "no" )
+      end
       row :hero_image do |model|
-        image_tag model.hero_image.url(:small)
+        if model.hero_image?
+          image_tag model.hero_image.url(:small)
+        else
+          image_tag model.region.hero_image.url(:small)
+        end
       end
       row :hero_image_link do |model|
-        model.hero_image.url
+        if model.hero_image?
+          model.hero_image.url
+        else
+          model.region.hero_image.url
+        end
       end
     end
   end
