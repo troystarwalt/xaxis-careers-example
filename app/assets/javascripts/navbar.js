@@ -1,11 +1,12 @@
 $(document).ready(function (){
-  setNavbarShadow();
+  $(window).on('load', function(){
+    setNavbarShadow();
+  })
+
+
   $(window).on('scroll',function(){
     setNavbarShadow();
-  });
-
-  $(window).on('scoll', function(){
-    $('.dropdown-menu').css('opacity', '.8');
+    $('.dropdown').css('opacity', '.975');
   });
 });
 
