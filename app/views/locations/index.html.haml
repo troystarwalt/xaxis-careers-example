@@ -1,11 +1,17 @@
-.body-section
-  .container
-    .locations-area
-      .row
-        -@locations.each do |location|
-          .text-center.location.col-sm-4
-            =link_to location_path(location.slug) do
-              %h2=location.name.upcase.html_safe
+
+#map{:style => "width: 100%; height: 600px"}
+
+.container
+  .regions-area
+    .row
+      -@regions.each do |region|
+        .text-center.region.col-sm-6.col-md-3
+          =link_to region_path(region.slug) do
+            -if region.slug == 'europe-middle-east'
+              %h2=region.name.upcase
+            -else
+              %h2=region.name.upcase.gsub(' ', '<br>').html_safe
             %hr
-            = location.job_count
-            Openings
+          %ul.cities
+            - region.locations.each do |location|
+              %li.city-link=link_to location.name.upcase, location_path(location.slug)

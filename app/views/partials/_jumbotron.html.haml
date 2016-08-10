@@ -1,13 +1,13 @@
 -model = @location || @department || @region
 -if model
-  -if model.hero_image?
-    .jumbotron{style: "background-image: url('#{asset_path(model.hero_image)}')"}
+  -if model.respond_to?(:region) && !model.hero_image?
+    .jumbotron{style: "background-image: url('#{asset_path(model.region.hero_image)}')"}
       = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
       .overlay-text
         %h2.text-center
           =model.class.find_by_slug(model.slug).name
-  -else model.region.hero_image
-    .jumbotron{style: "background-image: url('#{asset_path(model.region.hero_image)}')"}
+  -else
+    .jumbotron{style: "background-image: url('#{asset_path(model.hero_image)}')"}
       = image_tag asset_path('Stripe.png'), class: 'jumbostripe'
       .overlay-text
         %h2.text-center
