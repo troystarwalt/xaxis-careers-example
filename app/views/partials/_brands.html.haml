@@ -1,12 +1,13 @@
 .container
-  .brands.text-center
-    %h3 Our Brands
-    .row
-      .col-md-3.col-sm-6
-        =image_tag "//placekitten.com/400/300", :class => "img-responsive center-block gray-img"
-      .col-md-3.col-sm-6
-        =image_tag "//placekitten.com/400/300", :class => "img-responsive center-block gray-img"
-      .col-md-3.col-sm-6
-        =image_tag "//placekitten.com/400/300", :class => "img-responsive center-block gray-img"
-      .col-md-3.col-sm-6
-        =image_tag "//placekitten.com/400/300", :class => "img-responsive center-block gray-img"
+  .brands
+    .text-center
+      %h3.uppercase careers at our other brands
+    .brand-logo-container
+      .logo
+        =link_to image_tag("lightreaction.png", :class => "img-responsive center-block gray-img"), "http://lightreaction.com/en/careers/", class: "logo-link"
+      .logo
+        =link_to image_tag("plista.png", :class => "img-responsive center-block gray-img"), "https://www.plista.com/de/career", class: "logo-link"
+      .logo
+        =link_to image_tag("action-xx.png", :class => "img-responsive center-block gray-img"), "http://www.actionx.com/index.html#jobs", class: "logo-link"
+      .logo
+        =link_to image_tag("bannerconnect.png", :class => "img-responsive center-block gray-img"), "http://www.bannerconnect.net/careers/", class: "logo-link"

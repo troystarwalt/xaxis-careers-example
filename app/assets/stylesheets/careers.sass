@@ -84,14 +84,20 @@
 
 .brands
   margin-top: 80px
-  .gray-img
-    -webkit-filter: grayscale(100%)
-  .gray-img:hover
-    -webkit-filter: grayscale(0)
+  .brand-logo-container
+    display: flex
+    flex-direction: row
+    align-items: center
+    .logo
+      width: 100%
+      .gray-img
+        -webkit-filter: grayscale(100%)
+      .gray-img:hover
+        -webkit-filter: grayscale(0)
 
-@media (max-width: 991px)
+@media (max-width: 550px)
   .brands
-    .row
-      .col-sm-6
-        .gray-img
-          margin-top: 5px
+    .brand-logo-container
+      flex-direction: column
+      .logo
+        margin: 2%
