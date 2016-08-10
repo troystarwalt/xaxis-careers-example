@@ -19,23 +19,24 @@
         %li.dropdown
           =link_to locations_path do
             LOCATIONS
-            %span.caret.hidden-sm.hidden-xs
-          %ul.dropdown-menu.hidden-sm.hidden-xs
-            .container.col-sm-12
-              -@regions.each do |region|
-                .col-sm-3.dropdown-container
-                  =link_to region_path(region.slug), class: 'job-category text-center hidden-xs' do
-                    %li.main-listing-name
-                      =region.name.upcase
-                  %ul.city-container
-                    -region.main_cities.each do |location|
-                      =link_to location_path(location.slug), class: 'col-sm-12 text-center' do
-                        %li.city-name= location.name.upcase
+            %span.caret.hidden-xs
+          %ul.dropdown-menu.hidden-xs
+            .container
+              .col-sm-12
+                -@regions.each do |region|
+                  .col-sm-3.dropdown-container
+                    =link_to region_path(region.slug), class: 'job-category text-center hidden-xs' do
+                      %li.main-listing-name
+                        =region.name.upcase
+                    %ul.city-container
+                      -region.main_cities.each do |location|
+                        =link_to location_path(location.slug), class: 'col-sm-12 text-center' do
+                          %li.city-name= location.name.upcase
         %li.dropdown
           =link_to departments_path  do
             DEPARTMENTS
-            %span.caret.hidden-sm.hidden-xs
-          %ul.dropdown-menu.hidden-sm.hidden-xs
+            %span.caret.hidden-xs
+          %ul.dropdown-menu.hidden-xs
             .container
               -@departments.each do |department|
                 .col-sm-4.dropdown-container
@@ -43,9 +44,9 @@
                     %li.main-listing-name
                       =department.name.upcase
       %ul.nav.navbar-nav.navbar-right
-        %li.hidden-sm
+        %li
           =link_to "SEE ALL OPENINGS", jobs_path
-        %li.hidden-sm.hidden-xs
+        %li
           =link_to '###', id: 'search-button' do
             %span.glyphicon.glyphicon-search
         -if current_admin_user

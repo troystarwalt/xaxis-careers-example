@@ -4,6 +4,9 @@ $(document).ready(function (){
     setNavbarShadow();
   });
 
+  $(window).on('scoll', function(){
+    $('.dropdown-menu').css('opacity', '.8');
+  });
 });
 
 function setNavbarShadow(){
