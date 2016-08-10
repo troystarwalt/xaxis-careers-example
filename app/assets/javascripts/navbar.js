@@ -1,7 +1,7 @@
 $(document).ready(function (){
   $(window).on('load', function(){
     setNavbarShadow();
-  })
+  });
 
 
   $(window).on('scroll',function(){
