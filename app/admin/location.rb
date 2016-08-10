@@ -3,6 +3,7 @@ ActiveAdmin.register Location do
   form html: { :multipart => true } do |f|
     f.inputs "Location" do
       f.input :name
+      f.input :country, as: :country, priority_countries: ["US"]
       f.input :slug
       f.input :hub_city
       f.input :hero_image, as: :file, :hint => f.object.hero_image.present? \
@@ -18,7 +19,7 @@ ActiveAdmin.register Location do
 
   permit_params do
     permitted = [:permitted, :attributes]
-    permitted << [:hero_image, :name, :slug, :remove_hero_image, :region_id, :hub_city] if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
+    permitted << [:hero_image, :name, :slug, :remove_hero_image, :region_id, :hub_city, :country] if params[:action] == 'create' || params[:action] == 'update' && current_admin_user
     permitted
   end
 
@@ -53,6 +54,7 @@ ActiveAdmin.register Location do
       row :id
       row :name
       row :region
+      row :country
       row :slug
       row :hub_city
       row :has_hero_image do |model|

@@ -29,7 +29,9 @@ gem 'cancan'
 gem 'draper'
 gem 'pundit'
 gem 'sinatra', :require => false
-
+gem 'geocoder'
+gem 'country_select'
+gem 'gon'
 group :development, :test do
   gem 'byebug'
 end

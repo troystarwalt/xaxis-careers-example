@@ -2,6 +2,7 @@ class LocationsController < ApplicationController
   before_filter :set_nav_items
   def index
     @title = "Xaxis Careers | Locations"
+    gon.locations = Location.all
   end
 
   def show
