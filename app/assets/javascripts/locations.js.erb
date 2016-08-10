@@ -16,7 +16,7 @@ $('.locations.index').ready(function(){
 
     map.addListener( "rollOverMapObject", rollOverMapObject );
     map.addListener( "rollOutMapObject", rollOutMapObject );
-
+    map.addListener("positionChanged", updateCustomMarkers);
     function rollOverMapObject ( event ) {
       handleHovers( event, "hover" );
     }
@@ -54,6 +54,7 @@ $('.locations.index').ready(function(){
     type: "map",
     "theme": "none",
     projection: 'miller',
+    pathToImages: '/images',
     areasSettings: {
       autoZoom: false,
       color: '#DFDFDF',
@@ -65,19 +66,22 @@ $('.locations.index').ready(function(){
       balloonText: "[[customData]]"
     },
     imagesSettings: {
-      rollOverColor: "#089282",
-      rollOverScale: 3,
-      selectedScale: 3,
-      selectedColor: "#089282",
-      color: "#13564e"
+      rollOverOutlineColor: "#FFFFFF",
     },
-
-    pathToImages: "http://www.amcharts.com/lib/3/images/",
     allowClickOnSelectedObject: true,
       dataProvider: {
         map: "worldLow",
         rollOverColor: '#00AFEF',
-        selectedColor: '#00AFEF',
+        "images": [
+          <% Location.all.each do |location| %>
+          {
+            title: "<%= location.name %>",
+            imageURL: "<%= asset_path('Xaxis_Logo_Pos_Vert.png') %>",
+            latitude: parseFloat("<%= location.latitude %>"),
+            longitude: parseFloat("<%= location.longitude %>")
+          },
+          <% end %>
+        ],
         areas: [
           {
               id: 'AF',
@@ -1708,3 +1712,32 @@ $('.locations.index').ready(function(){
       }
   });
 });
+
+// this function will take current images on the map and create HTML elements for them
+function updateCustomMarkers (event) {
+    var map = event.chart;
+    for( var x in map.dataProvider.images) {
+      var image = map.dataProvider.images[x];
+      if ('undefined' == typeof image.externalElement)
+        image.externalElement = createCustomMarker(image);
+      var xy = map.coordinatesToStageXY(image.longitude, image.latitude);
+      image.externalElement.style.top = xy.y + 'px';
+      image.externalElement.style.left = xy.x + 'px';
+    }
+}
+function createCustomMarker(image) {
+    var holder = document.createElement('div');
+    holder.className = 'map-marker';
+    holder.title = image.title;
+    holder.style.position = 'absolute';
+    if (undefined != image.url) {
+      holder.onclick = function() {
+          window.location.href = image.url;
+      };
+    }
+    var dot = document.createElement('div');
+    dot.className = 'dot';
+    holder.appendChild(dot);
+    image.chart.chartDiv.appendChild(holder);
+    return holder;
+}
