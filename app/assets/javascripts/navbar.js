@@ -1,9 +1,13 @@
 $(document).ready(function (){
-  setNavbarShadow();
-  $(window).on('scroll',function(){
+  $(window).on('load', function(){
     setNavbarShadow();
   });
 
+
+  $(window).on('scroll',function(){
+    setNavbarShadow();
+    $('.dropdown').css('opacity', '.975');
+  });
 });
 
 function setNavbarShadow(){

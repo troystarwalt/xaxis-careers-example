@@ -1,5 +1,5 @@
 = render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
-.body-section
+.body-section.body-section-small-margin-bottom
   = render partial: 'regions/index' unless params[:location] || params[:department]
 .body-section
   = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}

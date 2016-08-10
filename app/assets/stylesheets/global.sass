@@ -4,7 +4,7 @@ html
   min-height: 100%
 
 body
-  margin-bottom: 300px
+  margin-bottom: 450px
   background-color: $white
   margin-top: 65px
 
@@ -86,13 +86,16 @@ body
     background-color: $white
   &:nth-child(odd)
     background-color: $alternate-white
+.body-section-small-margin-bottom
+  padding-bottom: 100px !important
+
 
 footer
-  background-color: $dark-grey
+  background-color: $white
   position: absolute
   bottom: 0
   width: 100%
-  height: 300px
+  padding: 165px 0 80px 0
   display: flex
   align-items: center
   justify-content: center
@@ -106,11 +109,13 @@ footer
     justify-content: space-around
     width: 70%
     align-items: center
-    border-top: 1px solid $primary-color
+    border-top: 1px solid $grey
     padding-top: 20px
     margin-top: 60px
     margin-bottom: 60px
     a
+      font-family: 'Gotham-Light'
+      font-size: 14px
       &.footer-link:link, &.footer-link:visited
         color: $primary-color
       &.footer-link:hover

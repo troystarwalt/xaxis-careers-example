@@ -1,9 +1,9 @@
 $('.locations-area, .regions-area, .departments-area').ready(function(){
   $(window).on('load', function(){
-    setContainerHeights($('.location h2, .region h2, .department h2'));
+    setContainerHeights($('.location h2, .region h2, .region ul, .department h2'));
   });
   $(window).on('resize', function(){
-    setContainerHeights($('.location h2, .region h2, .department h2'));
+    setContainerHeights($('.location h2, .region h2, .region ul, .department h2'));
   });
 
 });
