@@ -1,6 +1,4 @@
 - if @jobs.present?
   = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
 - else
-  %p
-    Sorry, there are no jobs containing the terms
-    = params[:search]
+  %p Try to search again.

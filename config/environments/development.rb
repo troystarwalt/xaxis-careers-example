@@ -39,4 +39,20 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Uncomment to try and debugg.
+  # require 'byebug/core'
+  # Byebug.wait_connection = true
+  #
+  # def find_available_port
+  #   server = TCPServer.new(nil, 0)
+  #   server.addr[1]
+  # ensure
+  #   server.close if server
+  # end
+  #
+  # port = find_available_port
+  # puts "Remote byebug on port #{port}"
+  # Byebug.start_server(nil, port)
+
 end
