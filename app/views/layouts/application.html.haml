@@ -26,10 +26,11 @@
   %body{class: "#{controller_name} #{action_name}"}
     = render partial: 'partials/nav'
     .content-wrapper
-      -if notice
-        %p.notice.alert.alert-info.text-center= notice
-      -if alert
-        %p.alert.alert-danger= alert
+      .flash-notices
+        -if notice
+          %p.notice.alert.alert-info.text-center= notice
+        -if alert
+          %p.alert.alert-danger= alert
       .container-fluid.fade-me-in
         = render partial: 'partials/searchfield'
         = yield
