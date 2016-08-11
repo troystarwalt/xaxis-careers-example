@@ -8,7 +8,12 @@ $(document).ready(function(){
         imageURL: "/Xaxis_Logo_Pos_Vert.png" ,
         latitude: parseFloat(location.latitude),
         longitude: parseFloat(location.longitude),
-        url: '/locations/'+location.slug
+        url: '/locations/'+location.slug,
+        groups: [location.region.slug],
+        centered: true,
+        mouseEnabled: true,
+        height: '20',
+        width: '17'
       });
     }
 
@@ -17,7 +22,6 @@ $(document).ready(function(){
       for ( var x in map.dataProvider.areas ) {
         var area = map.dataProvider.areas[ x ];
         if ( undefined !== area.groups && area.groups instanceof Array ) {
-          // collect information about groups
           for ( var y in area.groups ) {
             var group = area.groups[ y ];
             if ( undefined === map.mapGroups[ group ] )
@@ -25,7 +29,30 @@ $(document).ready(function(){
             map.mapGroups[ group ].push( area );
           }
         }
+        for ( var z in map.dataProvider.images ) {
+          var image = map.dataProvider.images[ z ];
+          if ( undefined !== image.groups && image.groups instanceof Array ) {
+            for ( var zz in image.groups ) {
+              var imagegroup = image.groups[ zz ];
+              if ( undefined === map.mapGroups[ imagegroup ] )
+                map.mapGroups[ imagegroup ] = [];
+              map.mapGroups[ imagegroup ].push( image );
+            }
+          }
+        }
       }
+
+      map.addListener('drawn', function(){
+        $("circle").parent().remove();
+      });
+
+      map.addListener('zoomCompleted', function(){
+        $("circle").parent().remove();
+      });
+
+      map.addListener('init', function(){
+        $("circle").parent().remove();
+      });
 
       map.addListener( "rollOverMapObject", rollOverMapObject );
       map.addListener( "rollOutMapObject", rollOutMapObject );
@@ -39,7 +66,6 @@ $(document).ready(function(){
       }
 
       function handleHovers( event, type ) {
-        // check if this area has related items defined
         var area = event.mapObject;
         if ( undefined === area.groups || !(area.groups instanceof Array) )
           return;
@@ -47,34 +73,37 @@ $(document).ready(function(){
           var group = area.groups[ y ];
           for ( var x in map.mapGroups[ group ] ) {
             var relatedArea = map.mapGroups[ group ][ x ];
-            if ( relatedArea.id === area.id )
+            if ( relatedArea.id === area.id || area.hasOwnProperty('imageUrl')){
               continue;
+            }
             if ( "blur" === type ) {
               relatedArea.showAsSelected = false;
               map.returnInitialColor( relatedArea );
+              $("g[aria-label=\""+relatedArea.title+" \"] image").attr('src', 'stuff');
             }
             else {
               relatedArea.showAsSelected = true;
               map.returnInitialColor( relatedArea );
+              $("g[aria-label=\""+relatedArea.title+" \"] image").attr('x-link:href', 'stuff');
             }
           }
         }
       }
-
     }, [ 'map'] );
 
-    map = AmCharts.makeChart("mapdiv", {
+    var map = AmCharts.makeChart("mapdiv", {
       type: "map",
       "theme": "none",
       projection: 'miller',
       pathToImages: '/images',
+      fontFamily: 'Gotham-Book',
       dragMap: false,
       zoomOnDoubleClick: false,
       areasSettings: {
         autoZoom: false,
         color: '#DFDFDF',
-        rollOverColor: '#00AFEF',
-        selectedColor: '#00AFEF',
+        rollOverColor: '#808080',
+        selectedColor: '#808080',
         rollOverOutlineColor: "#FFFFFF",
         alpha:0.8,
         unlistedAreasAlpha:0.5,
@@ -95,49 +124,49 @@ $(document).ready(function(){
             {
                 id: 'AF',
                 title: 'Afghanistan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific',
             },
             {
                 id: 'AX',
                 title: 'Aland Islands',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'AL',
                 title: 'Albania',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east',
             },
             {
                 id: 'DZ',
                 title: 'Algeria',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'AS',
                 title: 'American Samoa',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'AD',
                 title: 'Andorra',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'AO',
                 title: 'Angola',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -156,14 +185,14 @@ $(document).ready(function(){
             {
                 id: 'AR',
                 title: 'Argentina',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'AM',
                 title: 'Armenia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -174,42 +203,42 @@ $(document).ready(function(){
             {
                 id: 'AU',
                 title: 'Australia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'AT',
                 title: 'Austria',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'AZ',
                 title: 'Azerbaijan',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BS',
                 title: 'Bahamas',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'BH',
                 title: 'Bahrain',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BD',
                 title: 'Bangladesh',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
@@ -220,63 +249,63 @@ $(document).ready(function(){
             {
                 id: 'BY',
                 title: 'Belarus',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BE',
                 title: 'Belgium',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BZ',
                 title: 'Belize',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'BJ',
                 title: 'Benin',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BM',
                 title: 'Bermuda',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'BT',
                 title: 'Bhutan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'BO',
                 title: 'Bolivia',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'BA',
                 title: 'Bosnia And Herzegovina',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BW',
                 title: 'Botswana',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -287,147 +316,147 @@ $(document).ready(function(){
             {
                 id: 'BR',
                 title: 'Brazil',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'IO',
                 title: 'British Indian Ocean Territory',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'BN',
                 title: 'Brunei Darussalam',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BG',
                 title: 'Bulgaria',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BF',
                 title: 'Burkina Faso',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'BI',
                 title: 'Burundi',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KH',
                 title: 'Cambodia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'CM',
                 title: 'Cameroon',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CA',
                 title: 'Canada',
-                groups: ["NA"],
+                groups: ["north-america"],
                 customData: ["North America"],
                 url: '/regions/north-america'
             },
             {
                 id: 'CV',
                 title: 'Cape Verde',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KY',
                 title: 'Cayman Islands',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'CF',
                 title: 'Central African Republic',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TD',
                 title: 'Chad',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CL',
                 title: 'Chile',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'CN',
                 title: 'China',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'CX',
                 title: 'Christmas Island',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'CC',
                 title: 'Cocos (Keeling) Islands',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'CO',
                 title: 'Colombia',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'KM',
                 title: 'Comoros',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CG',
                 title: 'Congo',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CD',
                 title: 'Congo, Democratic Republic',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
               },
@@ -438,56 +467,56 @@ $(document).ready(function(){
             {
                 id: 'CR',
                 title: 'Costa Rica',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'CI',
                 title: 'Cote D\'Ivoire',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'HR',
                 title: 'Croatia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CU',
                 title: 'Cuba',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'CY',
                 title: 'Cyprus',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CZ',
                 title: 'Czech Republic',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'DK',
                 title: 'Denmark',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'DJ',
                 title: 'Djibouti',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -498,63 +527,63 @@ $(document).ready(function(){
             {
                 id: 'DO',
                 title: 'Dominican Republic',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'EC',
                 title: 'Ecuador',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'EG',
                 title: 'Egypt',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SV',
                 title: 'El Salvador',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'GQ',
                 title: 'Equatorial Guinea',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'ER',
                 title: 'Eritrea',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'EE',
                 title: 'Estonia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'ET',
                 title: 'Ethiopia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'FK',
                 title: 'Falkland Islands (Malvinas)',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
@@ -565,77 +594,77 @@ $(document).ready(function(){
             {
                 id: 'FJ',
                 title: 'Fiji',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'FI',
                 title: 'Finland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'FR',
                 title: 'France',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GF',
                 title: 'French Guiana',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'PF',
                 title: 'French Polynesia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TF',
                 title: 'French Southern Territories',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GA',
                 title: 'Gabon',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GM',
                 title: 'Gambia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GE',
                 title: 'Georgia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'DE',
                 title: 'Germany',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GH',
                 title: 'Ghana',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -646,21 +675,21 @@ $(document).ready(function(){
             {
                 id: 'GR',
                 title: 'Greece',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GL',
                 title: 'Greenland',
-                groups: ["NA"],
+                groups: ["north-america"],
                 customData: ["North America"],
                 url: '/regions/north-america'
             },
             {
                 id: 'GD',
                 title: 'Grenada',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
@@ -675,7 +704,7 @@ $(document).ready(function(){
             {
                 id: 'GT',
                 title: 'Guatemala',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
@@ -686,28 +715,28 @@ $(document).ready(function(){
             {
                 id: 'GN',
                 title: 'Guinea',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GW',
                 title: 'Guinea-Bissau',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GY',
                 title: 'Guyana',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'HT',
                 title: 'Haiti',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
@@ -718,14 +747,14 @@ $(document).ready(function(){
             {
                 id: 'VA',
                 title: 'Vatican City',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'HN',
                 title: 'Honduras',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
@@ -736,84 +765,84 @@ $(document).ready(function(){
             {
                 id: 'HU',
                 title: 'Hungary',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IS',
                 title: 'Iceland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IN',
                 title: 'India',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'ID',
                 title: 'Indonesia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'IR',
                 title: 'Iran, Islamic Republic Of',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IQ',
                 title: 'Iraq',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IE',
                 title: 'Ireland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IM',
                 title: 'Isle Of Man',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IL',
                 title: 'Israel',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'IT',
                 title: 'Italy',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'JM',
                 title: 'Jamaica',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'JP',
                 title: 'Japan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
@@ -824,126 +853,126 @@ $(document).ready(function(){
             {
                 id: 'JO',
                 title: 'Jordan',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KZ',
                 title: 'Kazakhstan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'KE',
                 title: 'Kenya',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KI',
                 title: 'Kiribati',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KR',
                 title: 'South Korea',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'KP',
                 title: 'North Korea',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'XK',
                 title: 'Kosovo',
-                groups: ['EMEA'],
+                groups: ['europe-middle-east'],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KW',
                 title: 'Kuwait',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'KG',
                 title: 'Kyrgyzstan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'LA',
                 title: 'Lao People\'s Democratic Republic',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'LV',
                 title: 'Latvia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LB',
                 title: 'Lebanon',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LS',
                 title: 'Lesotho',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LR',
                 title: 'Liberia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LY',
                 title: 'Libyan Arab Jamahiriya',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LI',
                 title: 'Liechtenstein',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LT',
                 title: 'Lithuania',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LU',
                 title: 'Luxembourg',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -954,49 +983,49 @@ $(document).ready(function(){
             {
                 id: 'MK',
                 title: 'Macedonia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MG',
                 title: 'Madagascar',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MW',
                 title: 'Malawi',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MY',
                 title: 'Malaysia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'MV',
                 title: 'Maldives',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'ML',
                 title: 'Mali',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MT',
                 title: 'Malta',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1007,21 +1036,21 @@ $(document).ready(function(){
             {
                 id: 'MQ',
                 title: 'Martinique',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'MR',
                 title: 'Mauritania',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MU',
                 title: 'Mauritius',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1032,77 +1061,77 @@ $(document).ready(function(){
             {
                 id: 'MX',
                 title: 'Mexico',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'FM',
                 title: 'Micronesia, Federated States Of',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
               },
             {
                 id: 'MD',
                 title: 'Moldova',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MC',
                 title: 'Monaco',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MN',
                 title: 'Mongolia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'ME',
                 title: 'Montenegro',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MS',
                 title: 'Montserrat',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MA',
                 title: 'Morocco',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MZ',
                 title: 'Mozambique',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'MM',
                 title: 'Myanmar',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'NA',
                 title: 'Namibia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1113,56 +1142,56 @@ $(document).ready(function(){
             {
                 id: 'NP',
                 title: 'Nepal',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'NL',
                 title: 'Netherlands',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'AN',
                 title: 'Netherlands Antilles',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'NC',
                 title: 'New Caledonia',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'NZ',
                 title: 'New Zealand',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'NI',
                 title: 'Nicaragua',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'NE',
                 title: 'Niger',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'NG',
                 title: 'Nigeria',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1173,42 +1202,42 @@ $(document).ready(function(){
             {
                 id: 'NF',
                 title: 'Norfolk Island',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'MP',
                 title: 'Northern Mariana Islands',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'NO',
                 title: 'Norway',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'OM',
                 title: 'Oman',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'PK',
                 title: 'Pakistan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'PW',
                 title: 'Palau',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1219,98 +1248,98 @@ $(document).ready(function(){
             {
                 id: 'PA',
                 title: 'Panama',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'PG',
                 title: 'Papua New Guinea',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'PY',
                 title: 'Paraguay',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'PE',
                 title: 'Peru',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'PH',
                 title: 'Philippines',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'PN',
                 title: 'Pitcairn',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'PL',
                 title: 'Poland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'PT',
                 title: 'Portugal',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'PR',
                 title: 'Puerto Rico',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'QA',
                 title: 'Qatar',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'RE',
                 title: 'Reunion',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'RO',
                 title: 'Romania',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'RU',
                 title: 'Russia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'RW',
                 title: 'Rwanda',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1345,14 +1374,14 @@ $(document).ready(function(){
             {
                 id: 'WS',
                 title: 'Samoa',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'SM',
                 title: 'San Marino',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1363,56 +1392,56 @@ $(document).ready(function(){
             {
                 id: 'SA',
                 title: 'Saudi Arabia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SN',
                 title: 'Senegal',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'RS',
                 title: 'Serbia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SC',
                 title: 'Seychelles',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'SL',
                 title: 'Sierra Leone',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SG',
                 title: 'Singapore',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'SK',
                 title: 'Slovakia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SI',
                 title: 'Slovenia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1423,14 +1452,14 @@ $(document).ready(function(){
             {
                 id: 'SO',
                 title: 'Somalia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'ZA',
                 title: 'South Africa',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
@@ -1441,154 +1470,154 @@ $(document).ready(function(){
             {
                 id: 'ES',
                 title: 'Spain',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'LK',
                 title: 'Sri Lanka',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'SS',
                 title: 'SouthSudan',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SD',
                 title: 'Sudan',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SR',
                 title: 'Suriname',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'SJ',
                 title: 'Svalbard And Jan Mayen',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SZ',
                 title: 'Swaziland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SE',
                 title: 'Sweden',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'CH',
                 title: 'Switzerland',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'SY',
                 title: 'Syrian Arab Republic',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TW',
                 title: 'Taiwan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'TJ',
                 title: 'Tajikistan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'TZ',
                 title: 'Tanzania',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TH',
                 title: 'Thailand',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'TL',
                 title: 'Timor-Leste',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TG',
                 title: 'Togo',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TK',
                 title: 'Tokelau',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TO',
                 title: 'Tonga',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TT',
                 title: 'Trinidad And Tobago',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'TN',
                 title: 'Tunisia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TR',
                 title: 'Turkey',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'TM',
                 title: 'Turkmenistan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
@@ -1599,42 +1628,42 @@ $(document).ready(function(){
             {
                 id: 'TV',
                 title: 'Tuvalu',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'UG',
                 title: 'Uganda',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'UA',
                 title: 'Ukraine',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'AE',
                 title: 'United Arab Emirates',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'GB',
                 title: 'United Kingdom',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'US',
                 title: 'United States',
-                groups: ["NA"],
+                groups: ["north-america"],
                 customData: ["North America"],
                 url: '/regions/north-america',
             },
@@ -1645,35 +1674,35 @@ $(document).ready(function(){
             {
                 id: 'UY',
                 title: 'Uruguay',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america'
             },
             {
                 id: 'UZ',
                 title: 'Uzbekistan',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'VU',
                 title: 'Vanuatu',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'VE',
                 title: 'Venezuela',
-                groups: ["LATAM"],
+                groups: ["latin-america"],
                 customData: ["Latin America"],
                 url: '/regions/latin-america',
             },
             {
                 id: 'VN',
                 title: 'Viet Nam',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
@@ -1688,41 +1717,43 @@ $(document).ready(function(){
             {
                 id: 'WF',
                 title: 'Wallis And Futuna',
-                groups: ['APAC'],
+                groups: ['asia-pacific'],
                 customData: ["Asia Pacific"],
                 url: '/regions/asia-pacific'
             },
             {
                 id: 'EH',
                 title: 'Western Sahara',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'YE',
                 title: 'Yemen',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'ZM',
                 title: 'Zambia',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             },
             {
                 id: 'ZW',
                 title: 'Zimbabwe',
-                groups: ["EMEA"],
+                groups: ["europe-middle-east"],
                 customData: ["Europe, Middle East and Africa"],
                 url: '/regions/europe-middle-east'
             }
           ]
         }
+
     });
+
   });
 
 });
