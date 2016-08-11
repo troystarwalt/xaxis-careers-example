@@ -1,6 +1,13 @@
 @import "vars"
-
 .mobility.timeline
+  .timelines-selector
+    .timeline-picture-selector
+      img
+        -webkit-filter: grayscale(100%)
+        &.active
+          -webkit-filter: grayscale(0)
+        &:hover
+          -webkit-filter: grayscale(0)
   ul.cd-timeline-navigation
     list-style-type: none
   .cd-horizontal-timeline
