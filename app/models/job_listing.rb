@@ -7,15 +7,17 @@ class JobListing < ActiveRecord::Base
   scope :in_location, -> (location){where(location_city_param: location)}
 
   def self.search(search)
-    key = "%#{search}%"
+    keys = "#{search}".to_s.downcase
+    keys_cleaned_and_separated = keys.strip.split.map { |x| "%#{x}%" }
     # Add additional columns below to search those.
     columns = %w{title region location}
-    @jobs = JobListing.where(
-    columns
-      .map {|c| "lower(#{c}) like :search"}
-      .join(' OR '),
-      search: key
-    )
+    search_array = []
+    columns.each do |c|
+      keys_cleaned_and_separated.each do |term|
+        search_array << "lower(#{c}) ~~* '#{term}'"
+      end
+    end
+    JobListing.where(search_array.join(' OR '))
   end
 
   private
