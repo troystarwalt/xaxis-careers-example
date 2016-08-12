@@ -32,6 +32,8 @@ gem 'sinatra', :require => false
 gem 'geocoder'
 gem 'country_select'
 gem 'gon'
+gem "autoprefixer-rails"
+
 group :development, :test do
   gem 'byebug'
 end
