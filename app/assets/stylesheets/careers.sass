@@ -44,13 +44,27 @@
     margin-left: -4px
     top: 8px
     border-radius: 4px
+    -moz-animation-duration: 1.5s
     -webkit-animation-duration: 1.5s
     animation-duration: 1.5s
+
+    -moz-animation-iteration-count: infinite
     -webkit-animation-iteration-count: infinite
     animation-iteration-count: infinite
+
+    -moz-animation-name: scroll
     -webkit-animation-name: scroll
     animation-name: scroll
 
+  @-moz-keyframes scroll
+    0%
+      opacity: 1
+
+    100%
+      opacity: 0
+      -moz-transform: translateY(46px)
+      -webkit-transform: translateY(46px)
+      transf
 
   @-webkit-keyframes scroll
     0%
@@ -58,19 +72,21 @@
 
     100%
       opacity: 0
+      -moz-transform: translateY(46px)
       -webkit-transform: translateY(46px)
       transform: translateY(46px)
 
 
 
-    @keyframes scroll
-      0%
-        opacity: 1
+  @keyframes scroll
+    0%
+      opacity: 1
 
-      100%
-        opacity: 0
-        -webkit-transform: translateY(46px)
-        transform: translateY(46px)
+    100%
+      opacity: 0
+      -moz-transform: translateY(46px)
+      -webkit-transform: translateY(46px)
+      transform: translateY(46px)
 
 
   .jumbostripe
@@ -140,6 +156,10 @@
 .brands
   margin-top: 80px
   .brand-logo-container
+    display: -webkit-box
+    display: -moz-box
+    display: -ms-flexbox
+    display: -webkit-flex
     display: flex
     flex-direction: row
     align-items: center
