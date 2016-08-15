@@ -2,14 +2,14 @@
   %section.timelines-selector
     .row
       .col-xs-4.text-center.timeline-picture-selector
-        =image_tag '//unsplash.it/400/600', class: 'img-responsive active'
-        %h4 Employee's Name
+        =image_tag '//robohash.org/set_set2/bgset_bg1/123?size=500x500', class: 'img-responsive active'
+        %h4 Employee 1
       .col-xs-4.text-center.timeline-picture-selector
-        =image_tag '//unsplash.it/400/600', class: 'img-responsive'
-        %h4 Other Employees Name
+        =image_tag '//robohash.org/set_set2/bgset_bg1/1?size=500x500', class: 'img-responsive'
+        %h4 Employee 2
       .col-xs-4.text-center.timeline-picture-selector
-        =image_tag '//unsplash.it/400/600', class: 'img-responsive'
-        %h4 Last Employees Name
+        =image_tag '//robohash.org/set_set2/bgset_bg1/2?size=500x500', class: 'img-responsive'
+        %h4 Employee 3
   %section.cd-horizontal-timeline{style: 'display: none;'}
     .timeline
       .events-wrapper
@@ -46,9 +46,9 @@
     .events-content
       %ol
         %li.selected{"data-date" => "16/01/2014"}
-          %h2 Horizontal Timeline 1
+          %h2 Employee 1 Timeline
           %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+            =image_tag '//unsplash.it/300/400?random'
         %li{"data-date" => "28/02/2014"}
           %h2 Event title here
           %p
@@ -125,7 +125,7 @@
     .events-content
       %ol
         %li.selected{"data-date" => "16/01/2014"}
-          %h2 Horizontal Timeline2
+          %h2 Employee 2 Timeline
           %p
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
         %li{"data-date" => "28/02/2014"}
@@ -187,14 +187,6 @@
               %a{"data-date" => "30/08/2014", :href => "#0"} 30 Aug
             %li
               %a{"data-date" => "15/09/2014", :href => "#0"} 15 Sep
-            %li
-              %a{"data-date" => "01/11/2014", :href => "#0"} 01 Nov
-            %li
-              %a{"data-date" => "10/12/2014", :href => "#0"} 10 Dec
-            %li
-              %a{"data-date" => "19/01/2015", :href => "#0"} 29 Jan
-            %li
-              %a{"data-date" => "03/03/2015", :href => "#0"} 3 Mar
           %span.filling-line{"aria-hidden" => "true"}
       %ul.cd-timeline-navigation
         %li
@@ -204,9 +196,9 @@
     .events-content
       %ol
         %li.selected{"data-date" => "16/01/2014"}
-          %h2 Horizontal Timeline3
+          %h2 Employee 3 timeline
           %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+            =image_tag '//unsplash.it/300/400'
         %li{"data-date" => "28/02/2014"}
           %h2 Event title here
           %p
@@ -214,7 +206,7 @@
         %li{"data-date" => "20/04/2014"}
           %h2 Event title here
           %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+            =image_tag '//unsplash.it/300/400?random'
         %li{"data-date" => "20/05/2014"}
           %h2 Event title here
           %p
@@ -222,7 +214,7 @@
         %li{"data-date" => "09/07/2014"}
           %h2 Event title here
           %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+            =image_tag '//unsplash.it/300/400?random'
         %li{"data-date" => "30/08/2014"}
           %h2 Event title here
           %p
@@ -230,20 +222,4 @@
         %li{"data-date" => "15/09/2014"}
           %h2 Event title here
           %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-        %li{"data-date" => "01/11/2014"}
-          %h2 Event title here
-          %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-        %li{"data-date" => "10/12/2014"}
-          %h2 Event title here
-          %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-        %li{"data-date" => "19/01/2015"}
-          %h2 Event title here
-          %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-        %li{"data-date" => "03/03/2015"}
-          %h2 Event title here
-          %p
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
+            =image_tag '//unsplash.it/300/400'
