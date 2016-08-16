@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_filter :set_nav_items
+  before_filter :set_nav_items, :retrieve_contact
   def index
     @title = "Xaxis Careers | Locations"
     gon.locations = JSON.parse(Location.all.to_json(include: :region))

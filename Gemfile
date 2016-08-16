@@ -33,6 +33,8 @@ gem 'geocoder'
 gem 'country_select'
 gem 'gon'
 gem "autoprefixer-rails"
+gem 'simple_form'
+gem 'mail_form'
 
 group :development, :test do
   gem 'byebug'

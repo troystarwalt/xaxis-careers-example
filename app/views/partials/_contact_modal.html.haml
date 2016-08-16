@@ -1,0 +1,21 @@
+#myModal.modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#myModalLabel.modal-title Questions? Comments?
+      = simple_form_for @contact, html: { class: 'form-vertical email-form'} do |f|
+        .modal-body
+          = f.input :name, :required => true, :placeholder => "Your Name", :class => "form-control"
+          = f.input :email, :required => true, :placeholder => "example@email.com", :class => "form-control"
+          .form-group
+            = f.label :message, :required => true
+            = f.text_area :message, :required => true, :placeholder => "Drop us a line", :class => "form-control", :rows => 4
+          .hidden
+            = f.input :nickname, hint: 'leave this field blank'
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Cancel
+          = f.button :submit, "Send", :class => "btn btn-primary"
+
+          -# %button.btn.btn-primary{:type => "button"} Send

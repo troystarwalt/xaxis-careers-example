@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  before_filter :set_nav_items
+  before_filter :set_nav_items, :retrieve_contact
   def index
     @title = "Xaxis Careers | Regions"
   end
