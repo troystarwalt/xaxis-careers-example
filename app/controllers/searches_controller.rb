@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_filter :set_nav_items
+  before_filter :set_nav_items, :retrieve_contact
   def index
     unless params[:search].present?
       flash[:alert] = "Click on the search icon to search."

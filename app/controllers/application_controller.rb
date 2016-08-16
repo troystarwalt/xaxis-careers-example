@@ -19,4 +19,8 @@ class ApplicationController < ActionController::Base
     @locations = Location.all.order(:name)
   end
 
+  private
+    def retrieve_contact
+      @contact = Contact.new(params[:contact])
+    end
 end

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   post '/get_all_careers' => 'jobvite_response#force_pull_jobs', as: :force_pull_jobs
   get '/searchresults' => 'searches#index'
 
+  match '/contacts', to: 'contacts#new', via: 'get'
+  resources "contacts", only: [:new, :create]
+
   authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
   end
