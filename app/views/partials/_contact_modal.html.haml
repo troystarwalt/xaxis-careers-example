@@ -4,12 +4,14 @@
       .modal-header
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
-        %h4#myModalLabel.modal-title Sup?
-      = simple_form_for @contact, html: { class: 'form-vertical'} do |f|
+        %h4#myModalLabel.modal-title Questions? Comments?
+      = simple_form_for @contact, html: { class: 'form-vertical email-form'} do |f|
         .modal-body
-          = f.input :name, :required => true
-          = f.input :email, :required => true, :placeholder => "example@email.com"
-          = f.text_area :message, :required => true, :placeholder => "Drop us a line", :class => "form-control", :rows => 3
+          = f.input :name, :required => true, :placeholder => "Your Name", :class => "form-control"
+          = f.input :email, :required => true, :placeholder => "example@email.com", :class => "form-control"
+          .form-group
+            = f.label :message, :required => true
+            = f.text_area :message, :required => true, :placeholder => "Drop us a line", :class => "form-control", :rows => 4
           .hidden
             = f.input :nickname, hint: 'leave this field blank'
         .modal-footer
