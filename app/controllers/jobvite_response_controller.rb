@@ -26,6 +26,12 @@ class JobviteResponseController < ApplicationController
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
       JobListing.all
     end
+    if params[:location] && params[:location].present?
+      @jobs = @jobs.where(location_city_param: params[:location])
+    end
+    if params[:department] && params[:department].present?
+      @jobs = @jobs.where(department_param: params[:department])
+    end
   end
 
   def force_pull_jobs

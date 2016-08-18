@@ -9,6 +9,14 @@
           -department_array = jobs.pluck(:department).uniq.sort
         -else
           -department_array = jobs.pluck(:department)
+        -if action_name == 'all_index'
+          = form_tag '/all-listings', method: :get do
+            = select_tag :location, options_for_select(Location.all.order(:name).map{|loc| [loc.name, loc.name.parameterize]}), {include_blank: "All", selected: params[:location], prompt: "Select a location"}
+            = select_tag :department, options_for_select(Department.all.order(:name).map{|dep| [dep.name, dep.name.parameterize]}, selected: params[:department], prompt: "Department"), {include_blank: "All", selected: params[:location], prompt: "Select a department"}
+            = link_to 'reset', jobs_path, class: 'btn btn-primary' if params[:location] && params[:location].present? || params[:department] && params[:department].present?
+            =submit_tag :search, class: 'btn btn-primary'
+
+
         -department_array.each do |department|
           %h2.text-center= department unless controller_name == 'department'
           -jobs.where(department: department).pluck(:location_city).uniq.sort.each do |location|
