@@ -80,4 +80,16 @@ Rails.application.configure do
   config.middleware.insert 0, "Rack::WWWhisper"
 
   config.action_mailer.default_url_options = { host: 'xaxis-careers-test.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+
+  # Need to add the ENV to Heroku and test on production server.
+  config.action_mailer.smtp_settings = {
+  address: "smtp.sendgrid.net",
+  port: 587,
+  domain: 'www.xaxis-careers.com',
+  authentication: "plain",
+  enable_starttls_auto: true,
+  user_name: ENV["SENDGRID_X_USERNAME"],
+  password: ENV["SENDGRID_X_PASSWORD"]
+  }
 end

@@ -7,16 +7,28 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     @contact.request = request
-    if @contact.valid?
-      flash.keep[:notice] = "Thanks " + @contact.name + ", message sent! We will get back to you soon."
-      redirect_to root_path
-    else
-      # collect errors
-      errors = @contact.errors.full_messages
-      @contact_errors = "#{errors.join(" & ")}"
-      flash.keep[:alert] = "Failed to send because: " + @contact_errors + "."
-      redirect_to :back
-    end
+      if @contact.valid?
+        respond_to do |format|
+        ContactMailer.contact_email(@contact).deliver
+        format.html { redirect_to root_path, :notice => "Email Sent!"}
+        format.json { render :json => @contact, :status => :created, :location => @contact }
+        end
+      else
+        errors = @contact.errors.full_messages
+        @contact_errors = "#{errors.join(" & ")}"
+        flash.keep[:alert] = "Failed to send because: " + @contact_errors + "."
+        redirect_to :back
+      end
+    # if @contact.valid?
+    #   flash.keep[:notice] = "Thanks " + @contact.name + ", message sent! We will get back to you soon."
+    #   redirect_to root_path
+    # else
+    #   # collect errors
+    #   errors = @contact.errors.full_messages
+    #   @contact_errors = "#{errors.join(" & ")}"
+    #   flash.keep[:alert] = "Failed to send because: " + @contact_errors + "."
+    #   redirect_to :back
+    # end
   end
 
 end

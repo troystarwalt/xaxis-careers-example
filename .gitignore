@@ -13,3 +13,4 @@
 /tmp
 dump.rdb
 .byebug_history
+.env
