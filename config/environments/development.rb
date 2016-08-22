@@ -15,7 +15,7 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -42,29 +42,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 5000 }
   config.action_mailer.delivery_method = :smtp
 
+  # For Development, setup your .env settings in app/.env
   config.action_mailer.smtp_settings = {
-  address: "smtp.sendgrid.net",
-  port: 587,
-  domain: 'www.xaxis-careers.com',
-  authentication: "plain",
-  enable_starttls_auto: true,
-  user_name: ENV["SENDGRID_USERNAME"],
-  password: ENV["SENDGRID_PASSWORD"]
+    address: "smtp.sendgrid.net",
+    port: 587,
+    domain: 'www.xaxis-careers.com',
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["SENDGRID_X_USERNAME"],
+    password: ENV["SENDGRID_X_PASSWORD"]
   }
-
-  # Uncomment to try and debugg.
-  # require 'byebug/core'
-  # Byebug.wait_connection = true
-  #
-  # def find_available_port
-  #   server = TCPServer.new(nil, 0)
-  #   server.addr[1]
-  # ensure
-  #   server.close if server
-  # end
-  #
-  # port = find_available_port
-  # puts "Remote byebug on port #{port}"
-  # Byebug.start_server(nil, port)
-
 end
