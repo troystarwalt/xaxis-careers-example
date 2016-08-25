@@ -19,16 +19,5 @@ class ContactsController < ApplicationController
         flash.keep[:alert] = "Failed to send because: " + @contact_errors + "."
         redirect_to :back
       end
-    # if @contact.valid?
-    #   flash.keep[:notice] = "Thanks " + @contact.name + ", message sent! We will get back to you soon."
-    #   redirect_to root_path
-    # else
-    #   # collect errors
-    #   errors = @contact.errors.full_messages
-    #   @contact_errors = "#{errors.join(" & ")}"
-    #   flash.keep[:alert] = "Failed to send because: " + @contact_errors + "."
-    #   redirect_to :back
-    # end
   end
-
 end
