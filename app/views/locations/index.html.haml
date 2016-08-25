@@ -2,16 +2,17 @@
 #mapdiv.hidden-xs{style: "width: 100%; height: 600px;"}
 
 .container
-  .regions-area
-    .row
-      -@regions.each do |region|
-        .text-center.region.col-sm-6.col-md-3
-          =link_to region_path(region.slug) do
-            -if region.slug == 'europe-middle-east'
-              %h2=region.name.upcase
-            -else
-              %h2=region.name.upcase.gsub(' ', '<br>').html_safe
-            %hr
-          %ul.cities
-            - region.locations.each do |location|
-              %li.city-link=link_to location.name.upcase, location_path(location.slug)
+  .body-section
+    .regions-area
+      .row
+        -@regions.each do |region|
+          .text-center.region.col-sm-6.col-md-3
+            =link_to region_path(region.slug) do
+              -if region.slug == 'europe-middle-east'
+                %h2=region.name.upcase
+              -else
+                %h2=region.name.upcase.gsub(' ', '<br>').html_safe
+              %hr
+            %ul.cities
+              - region.locations.each do |location|
+                %li.city-link=link_to location.name.upcase, location_path(location.slug)
