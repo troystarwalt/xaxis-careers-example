@@ -153,6 +153,30 @@
       border: 0
       border-top: 2px solid #eeeeee
 
+.filter-container
+  padding-top: 1em
+  display: flex
+  form
+    margin: 0 auto
+    .form-label
+      padding-right: 1vw
+      i
+        padding-right: .1em
+        span
+          display: none
+      p
+        text-align: center
+        font-size: 1.2em
+        display: inline-block
+    .form-group
+      text-align: center
+    .btn-reset
+      background: $alternate-white
+      border: 1.5px solid $light-grey
+      color: $xaxis-lighter-red
+    .btn-filter
+      text-align: left !important
+
 .brands
   margin-top: 80px
   .brand-logo-container
@@ -180,3 +204,16 @@
       .logo
         width: 100%
         margin: 2%
+
+@media (max-width: 767px)
+  .jobs-list
+    .intro-paragraph
+      margin: 0 1%
+  .filter-container
+    display: block
+    form
+      .form-label
+        padding-right: 0
+        i
+          span
+            display: inline
