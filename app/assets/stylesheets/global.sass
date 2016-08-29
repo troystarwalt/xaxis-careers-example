@@ -30,8 +30,7 @@ body
     position: fixed
     z-index: 1000
     label
-      float:right
-      margin-left: 5px
+      margin-right: 5px
     input.search-input
       width: 90%
       height: 6vh
@@ -43,7 +42,6 @@ body
       padding-left: 10px
       font-family: Gotham-Medium
       font-size: 4em
-      float: left
     input:-moz-placeholder
       color: rgb(147,149,152)
       font-family: Gotham-Medium
@@ -54,10 +52,8 @@ body
       outline: none
       background-color: rgba(199, 200, 202, 1)
       transition: all 1s ease 0s
+      font-family: Gotham-Book
       -webkit-transition: all .5s ease 0s
-
-.search-active
-  display: block
 
 /* FOOTER ELEMENTS */
 .btn-social
@@ -169,15 +165,23 @@ abbr
   display: none
 
 @media (max-width: 900px)
-  .search-container
+  #search-container
     #searchForm
       input.search-input
         font-size: 2.5em
-@media (max-width: 768px)
-  .search-container
+@media (max-width: 767px)
+  #search-button
+    font-size: 1.5em
+  #search-container
     #searchForm
+      position: fixed
+      bottom: 0
+      width: 100%
+      margin: 0
       input.search-input
         font-size: 2em
+        width: 100%
+        background-color: rgba(199, 200, 202, 1)
   footer
     p
     .footer-link-container
@@ -191,7 +195,7 @@ abbr
       width: 90%
       margin-top: 30px
 @media (max-width: 500px)
-  .search-container
+  #search-container
     #searchForm
       input.search-input
         font-size: 1.2em
