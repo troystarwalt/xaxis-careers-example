@@ -28,9 +28,16 @@ class JobviteResponseController < ApplicationController
     end
     if params[:location] && params[:location].present?
       @jobs = @jobs.where(location_city_param: params[:location])
+      puts @jobs.present?
     end
     if params[:department] && params[:department].present?
       @jobs = @jobs.where(department_param: params[:department])
+    end
+    if @jobs.count <= 0
+      loc = params[:location].capitalize
+      dep = params[:department].capitalize
+      flash[:notice] = "No jobs with the joint filter of: " + loc + " and " + dep
+      redirect_to jobs_path
     end
   end
 
@@ -40,5 +47,4 @@ class JobviteResponseController < ApplicationController
     flash[:notice] = "It may take a minute for updates to take effect"
     redirect_to admin_dashboard_path
   end
-
 end
