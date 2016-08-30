@@ -12,8 +12,9 @@ class SearchesController < ApplicationController
         JobListing.search(params[:search]).order("title DESC")
       end
       if @jobs.blank?
-        flash[:alert] = "No results that include term(s): " + params[:search]
+        flash[:error] = "No results that include term(s): " + params[:search]
         redirect_to jobs_path
+        puts flash.keys
       else
         flash.now[:notice] = "Returning results that include term(s): " + params[:search]
       end
