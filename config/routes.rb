@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :departments, only: [:index,:show]
   resources :locations, only: [:index,:show]
   resources :regions, only: [:index,:show]
-  get '/all-listings' => 'jobvite_response#all_index', as: :jobs
+  get '/careers' => 'jobvite_response#all_index', as: :jobs
   get '/careers/:e_id' => 'jobvite_response#show', as: :job
   post '/get_all_careers' => 'jobvite_response#force_pull_jobs', as: :force_pull_jobs
   get '/searchresults' => 'searches#index'

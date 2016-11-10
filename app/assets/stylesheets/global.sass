@@ -72,12 +72,10 @@ body
   margin-right: 5%
 
 .body-section
-  padding-top: 180px
-  padding-bottom: 180px
   &:nth-child(even)
-    background-color: $white
-  &:nth-child(odd)
     background-color: $alternate-white
+  &:nth-child(odd)
+    background-color: $white
 .body-section-padding-small
   padding-top: 90px
   padding-bottom: 90px
@@ -87,7 +85,9 @@ body
     background-color: $alternate-white
 .body-section-small-margin-bottom
   padding-bottom: 100px !important
-
+.body-section.with-padding
+  padding-top: 180px
+  padding-bottom: 180px
 @media (min-width: 768px)
   .locations
     .content-wrapper
@@ -97,7 +97,7 @@ body
           background-color: $white
 
 footer
-  background-color: $white
+  background-color: $footer-color
   position: absolute
   bottom: 0
   width: 100%
@@ -214,3 +214,5 @@ select
   height: 33px
   border: 0
   background-color: $lightest-grey, 5
+.special-column
+  padding: 5vw
