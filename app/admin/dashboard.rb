@@ -6,10 +6,10 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel "Careers last updated at" do
-          h2 JobviteResponse.last.get_updated_at
+          h2 JobviteUpdated.get_last_updated_at
           a button("Force Update"), href: force_pull_jobs_url,
                           :'data-method' => :post,
-                          :'data-confirm' => JobviteResponse.force_update_warning
+                          :'data-confirm' => JobviteUpdated.force_update_warning
         end
         panel "Number of current Job Listings By Region" do
           Region.all.each do |region|
@@ -28,7 +28,7 @@ ActiveAdmin.register_page "Dashboard" do
       end
       column do
         panel "Number of current Job Listings" do
-          span JobviteResponse.last.job_listings.count
+          span JobListing.all.count
         end
         panel "Number of current Job Listings By Department" do
           Department.all.each do |department|

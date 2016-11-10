@@ -1,11 +1,9 @@
 class JobListing < ActiveRecord::Base
-  belongs_to :jobvite_response
   before_validation :clean_data
   scope :visible, -> {where(private: false)}
   scope :in_region, -> (region){where(region_param: region.parameterize)}
   scope :in_department, -> (department){where(department_param: department)}
   scope :in_location, -> (location){where(location_city_param: location)}
-
   def self.search(search)
     keys = "#{search}".to_s.downcase
     keys_cleaned_and_separated = keys.strip.split.map { |x| "%#{x}%" }
@@ -18,6 +16,10 @@ class JobListing < ActiveRecord::Base
       end
     end
     JobListing.where(search_array.join(' OR '))
+  end
+
+  def self.force_pull_jobs!
+    PullCareersJob.perform_async
   end
 
   private

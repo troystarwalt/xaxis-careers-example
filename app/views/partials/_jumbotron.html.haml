@@ -2,24 +2,19 @@
 -if model
   -if model.respond_to?(:region) && !model.hero_image?
     .jumbotron{style: "background-image: url('#{asset_path(model.region.hero_image)}')"}
-      -#= image_tag asset_path('Stripe.png'), class: 'jumbostripe'
       .overlay-text
         %h2.text-center
-          =model.class.find_by_slug(model.slug).name
+          = subtitle || model.class.find_by_slug(model.slug).name
       .icon-scroll
   -else
     .jumbotron{style: "background-image: url('#{asset_path(model.hero_image)}')"}
-      -#= image_tag asset_path('Stripe.png'), class: 'jumbostripe'
       .overlay-text
         %h2.text-center
-          =model.class.find_by_slug(model.slug).name
+          = subtitle || model.class.find_by_slug(model.slug).name
       .icon-scroll
 -else
   .jumbotron{style: "background-image: url('//placehold.it/1600x900')"}
+    .overlay-text
+      %h2.text-center
+        =subtitle
     .icon-scroll
-    -#= image_tag asset_path('Stripe.png'), class: 'jumbostripe'
-    -if action_name == 'show'
-      .overlay-text
-        %h2.text-center
-          =subtitle
-      .icon-scroll

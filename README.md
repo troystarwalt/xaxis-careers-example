@@ -14,8 +14,7 @@ rake careers:pull_jobs
 ```
 
 - Jobvite API Interaction defined in app/services
-- Json response is being saved in JobviteResponse table, as response
-- Response is parsed and each listing is separately saved as an entry on the JobListing table
+- Job Listings are updated by getting the API response, checking to see if the entry exists, updating it if necessary, making new entries if needed, then removing any old entries
 
 - Departments/Locations/Regions all have basic CRUD operations, and can be generated initially through the seed file, or updated later.
 

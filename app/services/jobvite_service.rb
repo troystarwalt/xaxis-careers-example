@@ -14,23 +14,16 @@ class JobviteService
     response = get_response(PRODUCTION_URL)
     parsed_response = parse_response(response)
     if parsed_response['status']['code'] == 200
-      if JobviteResponse.last.nil? || parsed_response != JobviteResponse.last.response
-        jobvite_response = update_jobs_table(parsed_response)
-        listings = jobvite_response.response['requisitions']
-        create_jobs(listings)
-        if JobviteResponse.all.count > 1
-          JobviteResponse.first.destroy
-        end
-        update_job_counts
-        Rails.cache.clear
-      else
-        JobviteResponse.last.update(updated_at: Time.now)
-      end
+      create_or_update_listings(parsed_response['requisitions'])
+      destroy_old_listings(parsed_response['requisitions'])
+      update_job_counts
+      JobviteUpdated.create(success: true)
+      Rails.cache.clear
+    else
+      JobviteUpdated.create(success: false)
     end
-    JobviteResponse.last.job_listings
+    JobListing.all
   end
-
-
 
   private
   #gets api response
@@ -46,16 +39,13 @@ class JobviteService
     parsed_response
   end
 
-  #saves api response as json on AR
-  def self.update_jobs_table json_response
-    JobviteResponse.create(response: json_response)
-  end
 
 #converts a requisition from jobvite to a job_listing on AR
-  def self.create_jobs(requisitions_json)
-    requisitions_json.each do |job|
-      JobviteResponse.last.job_listings.create(
-        e_id: job['eId'],
+
+  def self.create_or_update_listings requisitions
+    puts "updating: #{requisitions.length} requisitions" if requisitions.length > 0
+    requisitions.each do |job|
+      job_attrs = {
         region: job['region'],
         region_param: job['region'].parameterize,
         bonus: job['bonus'],
@@ -89,8 +79,19 @@ class JobviteService
         evaluation_form_name: job['evaluationFormName'],
         location_postal_code: job['locationPostalCode'],
         primary_hiring_manager_email: job['primaryHiringManagerEmail']
-      )
+      }
+      job_listing = JobListing.find_or_initialize_by(e_id: job['eId'])
+      if job_listing && job_listing.update_attributes(job_attrs)
+        job_listing.save
+      end
     end
+  end
+
+  def self.destroy_old_listings requisitions
+    current_e_ids = requisitions.map{|job| job["eId"]}
+    old_listings = JobListing.all.count - current_e_ids.count
+    puts "destroying #{old_listings} old listings"
+    JobListing.where.not(e_id: current_e_ids).find_each(&:destroy)
   end
 
   def self.update_job_counts

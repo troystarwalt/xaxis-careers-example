@@ -1,0 +1,8 @@
+= render partial: 'partials/jumbotron', locals: {subtitle: @subtitle}
+.body-section.with-padding
+  .row
+    .col-sm-10.col-sm-offset-1
+      = render partial: 'job_listings/filter'
+  .row
+    .col-xs-12
+      = render partial: 'departments/index', locals: {departments: @departments}
