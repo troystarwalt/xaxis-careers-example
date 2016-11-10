@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810213816) do
+ActiveRecord::Schema.define(version: 20161110173415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,18 +107,15 @@ ActiveRecord::Schema.define(version: 20160810213816) do
     t.string   "primary_hiring_manager_email"
     t.string   "department_param"
     t.string   "region_param"
-    t.integer  "jobvite_response_id"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
 
-  add_index "job_listings", ["jobvite_response_id"], name: "index_job_listings_on_jobvite_response_id", using: :btree
-
-  create_table "jobvite_responses", force: :cascade do |t|
-    t.jsonb    "response"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "jobvite_updateds", force: :cascade do |t|
+    t.boolean  "success",    default: false
+    t.datetime "at_time",    default: '2016-11-10 17:35:12'
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -148,6 +145,5 @@ ActiveRecord::Schema.define(version: 20160810213816) do
     t.integer  "position"
   end
 
-  add_foreign_key "job_listings", "jobvite_responses"
   add_foreign_key "locations", "regions"
 end

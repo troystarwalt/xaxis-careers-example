@@ -1,5 +1,4 @@
 class JobListing < ActiveRecord::Base
-  belongs_to :jobvite_response
   before_validation :clean_data
   scope :visible, -> {where(private: false)}
   scope :in_region, -> (region){where(region_param: region.parameterize)}
@@ -18,6 +17,10 @@ class JobListing < ActiveRecord::Base
       end
     end
     JobListing.where(search_array.join(' OR '))
+  end
+
+  def self.force_pull_jobs!
+    PullCareersJob.perform_async
   end
 
   private

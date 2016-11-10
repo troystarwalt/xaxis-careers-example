@@ -1,4 +1,4 @@
 - if @jobs.present?
-  = render partial: 'jobvite_response/job_list', locals: {jobs: @jobs}
+  = render partial: 'job_listings/job_list', locals: {jobs: @jobs}
 - else
   %p Try to search again.
