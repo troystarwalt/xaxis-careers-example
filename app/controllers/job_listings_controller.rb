@@ -4,9 +4,9 @@ class JobListingsController < ApplicationController
   def index
     @title = "Xaxis Careers | All Listings"
     @jobs = Rails.cache.fetch('jobs',expires_in: 24.hour) do
-      JobListing.all
+      JobListing.visible
     end
-    sub = ''
+    sub = []
     if params[:department] && params[:department].present?
       @jobs = @jobs.where(department_param: params[:department])
       @department = Department.find_by_slug(params[:department])
@@ -15,16 +15,11 @@ class JobListingsController < ApplicationController
     if params[:location] && params[:location].present?
       @jobs = @jobs.where(location_city_param: params[:location])
       @location = Location.find_by_slug(params[:location])
-      if sub.length > 0
-        sub << " in "
-      end
       sub << @location.name
     end
-    @subtitle = sub
+    @subtitle = sub.join(' ')
     if @jobs.count <= 0
-      loc = params[:location].capitalize
-      dep = params[:department].capitalize
-      flash[:notice] = "No jobs with the joint filter of: " + loc + " and " + dep
+      flash[:notice] = "No jobs with the joint filter of: " + sub.to_sentence
       redirect_to jobs_path
     end
   end

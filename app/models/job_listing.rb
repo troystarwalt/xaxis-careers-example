@@ -4,7 +4,6 @@ class JobListing < ActiveRecord::Base
   scope :in_region, -> (region){where(region_param: region.parameterize)}
   scope :in_department, -> (department){where(department_param: department)}
   scope :in_location, -> (location){where(location_city_param: location)}
-
   def self.search(search)
     keys = "#{search}".to_s.downcase
     keys_cleaned_and_separated = keys.strip.split.map { |x| "%#{x}%" }
